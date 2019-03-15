@@ -1,5 +1,5 @@
 var countries = [{
-    name: Belgium,
+    name: "Belgium",
     city: "Bruges",
     image: "",
     code: "BA",
