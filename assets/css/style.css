@@ -6,7 +6,7 @@
   margin-bottom: 20px;
   font-family: 'Times New Roman', Times, serif;
   font-size: 70px;
-  color: salmon;
+  color: indianred;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
@@ -37,4 +37,8 @@
 
 .events-title, .restaurants-title {
   font-family: 'Times New Roman', Times, serif;
+}
+
+.page-footer {
+  text-align: center;
 }
