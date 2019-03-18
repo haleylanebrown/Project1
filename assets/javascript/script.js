@@ -3,11 +3,6 @@ $(document).ready(function () {
     $(".dropdown-trigger").dropdown();
 });
 
-// var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-// var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?" +
-// "q=" +  "&units=imperial&appid=" + APIKey;
-
-
 var countries = [{
 
     name: "Belgium",
@@ -84,7 +79,6 @@ var countries = [{
 
 
 
-
 $(".find-city").on("click", function (event) {
 
     var cityNumber = (Math.floor(Math.random() * countries.length));
@@ -93,7 +87,7 @@ $(".find-city").on("click", function (event) {
 
 
 
-// AJAX CALL FOR HOLIDAYS
+    // AJAX CALL FOR HOLIDAYS
     var year = moment().format("YYYY");
     var month = moment().format("MM");
     var day = moment().format("DD");
@@ -116,5 +110,24 @@ $(".find-city").on("click", function (event) {
     })
 
 
-// END OF ON CLICK FUNCTION FOR FIND CITY
+    // AJAX CALL FOR Weather
+    //api key for weather    
+    var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
+    //api key for flight
+    var APIKeyFlight;
+    var queryURLFlight = "http://partners.api.skyscanner.net/apiservices/referral/v1.0/{country}/{currency}/{locale}/={originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}?apiKey=ra66933236979928"
+    $(".city-name").text(countries[cityNumber].city);
+    $(".country-name").text(countries[cityNumber].name);
+
+    $.ajax({
+        url: queryURLWeather,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+        $(".current-weather").html("Temperature (F): " + response.main.temp + "</br>Humidity: " + response.main.humidity + "</br>Sky coverage: " + response.weather[0].description + "</br>Wind speed (MPH): " + response.wind.speed)
+    })
+
+
+    // END OF ON CLICK FUNCTION FOR FIND CITY
 })
