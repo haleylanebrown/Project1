@@ -1,80 +1,80 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('.parallax').parallax();
-    $(".dropdown-trigger").dropdown();  
-  });
+    $(".dropdown-trigger").dropdown();
+});
 
 // var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
 // var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?" +
 // "q=" +  "&units=imperial&appid=" + APIKey;
 
-  
+
 var countries = [{
 
     name: "Belgium",
     city: "Bruges",
     image: "",
-    code: "BA",
-},{
+    code: "Be",
+}, {
     name: "Brazil",
     city: "Rio de Janeiro",
     image: "",
     code: "BR",
-},{
+}, {
     name: "Canada",
     city: "Vancouver",
     image: "",
     code: "CA",
-},{
+}, {
     name: "Czech Republic",
     city: "Prague",
     image: "",
     code: "CZ",
-},{
+}, {
     name: "Denmark",
     city: "Helsingør",
     image: "",
     code: "DK",
-},{
+}, {
     name: "Germany",
     city: "Berlin",
     image: "",
     code: "DE",
-},{
+}, {
     name: "France",
     city: "Bordeaux ",
     image: "",
     code: "FR",
-},{
+}, {
     name: "Norway",
     city: "Oslo",
     image: "",
     code: "NO",
-},{
+}, {
     name: "Poland",
     city: "Kraków",
     image: "",
     code: "PL",
-},{
+}, {
     name: "Russia",
     city: "Novosibirsk",
     image: "",
     code: "RU",
-},{
+}, {
     name: "Slovakia",
     city: "High Tatras",
     image: "",
     code: "SK",
-},{
+}, {
     name: "Sierra Leone",
     city: "Freetown",
     image: "",
     code: "SL",
-},{
+}, {
     name: "Vietnam",
     city: "Hoi An",
     image: "",
     code: "VN",
-},{
+}, {
     name: "Indonesia",
     city: "Bali",
     image: "",
@@ -85,19 +85,36 @@ var countries = [{
 
 
 
-// $(document).ready(function) {
-//   $.ajax({
-//       url: queryURLWeather,
-//       method: "GET"
-//   }).then (function(response){
-      
-//   })
-// };
+$(".find-city").on("click", function (event) {
+
+    var cityNumber = (Math.floor(Math.random() * countries.length));
+    $(".city-name").text(countries[cityNumber].city)
+    $(".country-name").text(countries[cityNumber].name)
 
 
-$(".find-city").on("click", function(event) {
-var cityNumber = (Math.floor(Math.random()* countries.length));
-$(".city-name").text(countries[cityNumber].city)
-$(".country-name").text(countries[cityNumber].name)
 
+// AJAX CALL FOR HOLIDAYS
+    var year = moment().format("YYYY");
+    var month = moment().format("MM");
+    var day = moment().format("DD");
+    var queryURLholiday = ("https://holidayapi.pl/v1/holidays?country=" + countries[cityNumber].code + "&year=" + year + "&month=" + month + "&day=" + day + "&upcoming=true");
+
+    $.ajax({
+        url: queryURLholiday,
+        method: "GET"
+
+    }).then(function (response) {
+        $("#data").empty();
+        for (var i = 0; i < response.holidays.length; i++) {
+            var holidayName = $("<div>");
+            var holidayDate = $("<div>");
+
+            holidayName.append(response.holidays[i].name);
+            holidayDate.append(response.holidays[i].date);
+            $("#data").append(holidayName, holidayDate);
+        }
+    })
+
+
+// END OF ON CLICK FUNCTION FOR FIND CITY
 })
