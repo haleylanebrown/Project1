@@ -1,21 +1,11 @@
-
-var countries = [{
-
 $(document).ready(function(){
     $('.parallax').parallax();
-    $(".dropdown-trigger").dropdown();
-    
-    $.ajax({
-        url: queryURLWeather,
-        method: "GET"
-    }).then (function(response){
-        
-    })
+    $(".dropdown-trigger").dropdown();  
   });
 
-var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?" +
-"q=" +  "&units=imperial&appid=" + APIKey;
+// var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
+// var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?" +
+// "q=" +  "&units=imperial&appid=" + APIKey;
 
   
 var countries = [{
@@ -92,18 +82,22 @@ var countries = [{
 }
 ];
 
-var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?" +
-"q=" +  "&units=imperial&appid=" + APIKey;
 
 
 
-$(document).ready(function) {
-  $.ajax({
-      url: queryURLWeather,
-      method: "GET"
-  }).then (function(response){
+// $(document).ready(function) {
+//   $.ajax({
+//       url: queryURLWeather,
+//       method: "GET"
+//   }).then (function(response){
       
-  })
-};
+//   })
+// };
 
+
+$(".find-city").on("click", function(event) {
+var cityNumber = (Math.floor(Math.random()* countries.length));
+$(".city-name").text(countries[cityNumber].city)
+$(".country-name").text(countries[cityNumber].name)
+
+})
