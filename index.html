@@ -9,21 +9,156 @@
 
     <title>Project</title>
 
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- CSS stylesheet -->
     <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+
+    <!-- CSS stylesheet -->
 
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
     <!-- jQuery link -->
     <script src="https://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
 
 </head>
 
 <body>
 
+    <!-- Header -->
+
+    <div id="navbar">
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">Weather</a></li>
+            <li><a href="#!">Events</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Holidays</a></li>
+            <li><a href="#!">Restaurants</a></li>
+            <li><a href="#!">Flights</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper">
+                <img src="assets/images/Screen Shot 2019-03-17 at 4.20.36 PM.png" href="#!" class="brand-logo" />
+                <ul class="right hide-on-med-and-down">
+                    <!-- Dropdown Trigger -->
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i
+                                class="material-icons right">arrow_drop_down</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Content -->
+    <div class="parallax-container center valign-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 white-text">
+                    <h2 class="lighten-2 site-title">TRAVEL ROULETTE</h2>
+                    <p id="subtitle">Love international travel, but not sure where to go? Take our site for a spin and
+                        get inspired!</p>
+                    <a class="waves-effect waves-light btn-large lighten-2 teal find-city">Find a New City</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="parallax">
+            <img src="assets/images/travel1.jpg">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="icon-block">
+                    <h2 class="center teal-text">
+                        <i class="material-icons city-name">City Name</i>
+                    </h2>
+                    <h5 class="center">Country</h5>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="parallax-container center valign-wrapper">
+        <div class="parallax"><img
+                src="assets/images/travel2.jpg">
+        </div>
+        <div class="container white-text">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="teal-text weather-title">Weather:</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container center-align">
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="teal-text events-title">Events Today</h2>
+                    <p class="light center-align">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec
+                        volutpat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax-container center valign-wrapper">
+        <div class="parallax"><img
+                src="assets/images/travel3.jpg">
+        </div>
+
+        <div class="container white-text">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="teal-text holidays-title">Local Holidays</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container center-align">
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="teal-text restaurants-title">Restaurants</h2>
+                    <p class="light center-align">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec
+                        volutpat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax-container center valign-wrapper">
+        <div class="parallax"><img
+                src="https://www.freegreatpicture.com/files/142/6126-high-resolution-air-photo.jpg">
+        </div>
+
+        <div class="container white-text">
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="teal-text flights-title">Flights</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="page-footer #ff5252 red accent-2">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Copyright Kevin-Dylan-Haley
+            </div>
+        </div>
+    </footer>
 
 
     <script type="text/javascript" src="./assets/javascript/script.js"></script>
