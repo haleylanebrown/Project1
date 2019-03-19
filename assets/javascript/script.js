@@ -8,47 +8,51 @@ var countries = [{
     code: "BA",
 },{
 
+    code: "Be",
+    latitude: "51.2093",
+},{
+
     name: "Brazil",
     city: "Rio de Janeiro",
     image: ["assets/images/riodejaneiro1.jpg", "assets/images/riodejaneiro2.jpg", "assets/images/riodejaneiro3.jpg", "assets/images/riodejaneiro4.jpg"],
     code: "BR",
-    
+
 }, {
     name: "Canada",
     city: "Vancouver",
     image: ["assets/images/vancouver1.jpg", "assets/images/vancouver2.jpg", "assets/images/vancouver3.jpg", "assets/images/vancouver4.jpg"],
     code: "CA",
-    
+
 }, {
     name: "Czech Republic",
-    city: "Prague",
+    city: "Praha",
     image: ["assets/images/prague1.jpg", "assets/images/prague2.jpg", "assets/images/prague3.jpg", "assets/images/prague4.jpg"],
     code: "CZ",
-    
+
 }, {
     name: "Denmark",
-    city: "Helsingør",
+    city: "København",
     image: ["assets/images/helsingør1.jpg", "assets/images/helsingør2.jpg", "assets/images/helsingør3.jpg", "assets/images/helsingør4.jpg"],
     code: "DK",
-    
+
 }, {
     name: "Germany",
     city: "Berlin",
     image: ["assets/images/berlin1.jpg", "assets/images/berlin2.jpg", "assets/images/berlin3.jpg", "assets/images/berlin4.jpg"],
     code: "DE",
-    
+
 }, {
     name: "France",
     city: "Bordeaux",
     image: ["assets/images/bordeaux1.jpg", "assets/images/bordeaux2.jpg", "assets/images/bordeaux3.jpg", "assets/images/bordeaux4.jpg"],
     code: "FR",
-    
+
 }, {
     name: "Norway",
     city: "Oslo",
     image: ["assets/images/oslo1.jpg", "assets/images/oslo2.jpg", "assets/images/oslo3.jpg", "assets/images/oslo4.jpg"],
     code: "NO",
-    
+
 }, {
     name: "Poland",
     city: "Kraków",
@@ -89,11 +93,62 @@ var countries = [{
 ];
 
 
+}, 
+// NEWLY ADDED CITIES
+{
+    name: "Argentina",
+    city: "Buenos Aires",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+
+    code: "NONE",
+
+},{
+    name: "Australia",
+    city: "Sydney",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Austria",
+    city: "Wien",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Chile",
+    city: "Santiago",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Philippines",
+    city: "Manila",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Singapore",
+    city: "Singapore",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},
+
+
+
+
+
+
+
 $(document).ready(function () {
     $('.parallax').parallax();
     $(".dropdown-trigger").dropdown();
 });
 
+$(".find-city").on("click", function(event) {
+var cityNumber = (Math.floor(Math.random()* countries.length));
+$(".city-name").text(countries[cityNumber].city)
+$(".country-name").text(countries[cityNumber].name)
 
 
 $(".find-city").on("click", function(event) {
@@ -101,8 +156,19 @@ var cityNumber = (Math.floor(Math.random()* countries.length));
 $(".city-name").text(countries[cityNumber].city)
 $(".country-name").text(countries[cityNumber].name)
 
+$(".find-city").on("click", function (event) {
+
+    var cityNumber = (Math.floor(Math.random() * countries.length));
+    $(".city-name").text(countries[cityNumber].city)
+    $(".country-name").text(countries[cityNumber].name)
+
+
+
+
 var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
 var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
+
+
 
 $(document).ready(function() {
 
@@ -116,15 +182,20 @@ $(document).ready(function() {
         url: queryURLEventsToken,
         method: "GET"
     }).then (function(response){
-        console.log(response)
         $.ajax({
             url: queryURLEvents,
             method: "GET"
         }).then (function(response){
+
+
+            $("tbody").empty();
+            $("thead").empty();
+
             console.log(response)
 
             $("#events-body").empty();
             $("#events-head").empty();
+
            
 
         if (response.events.length >= 1) {
@@ -166,14 +237,22 @@ $(document).ready(function() {
         })
 
         });
+
 }) 
 
 // })
 
 
-  
+
+
 
     // AJAX CALL FOR HOLIDAYS
+    if (countries[cityNumber].code === "NONE"){
+        $("#data").empty();
+        $("#data").append("My apologies. Holiday information is unavailable");
+
+    }
+    else {
     var year = moment().format("YYYY");
     var month = moment().format("MM");
     var day = moment().format("DD");
@@ -188,12 +267,17 @@ $(document).ready(function() {
         for (var i = 0; i < response.holidays.length; i++) {
             var holidayName = $("<div>");
             var holidayDate = $("<div>");
+            
+            var uglyDate = response.holidays[i].date
+            var convertingDate = moment(uglyDate, "YYYY-MM-DD");
+            var prettyDate = (convertingDate).format("MMMM Do YYYY");
+            console.log(prettyDate);
 
             holidayName.append(response.holidays[i].name);
-            holidayDate.append(response.holidays[i].date);
+            holidayDate.append(prettyDate);
             $("#data").append(holidayName, holidayDate);
         }
-    })
+    })};
 
 
     // AJAX CALL FOR Weather
@@ -205,7 +289,8 @@ $(document).ready(function() {
 
     // AJAX CALL FOR YELP
     var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
-    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=denver";
+    var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
 
     $.ajax({
         url: queryURLYelp,
@@ -217,9 +302,24 @@ $(document).ready(function() {
         contentType: "application/json"
     }).then(function (response) {
         console.log(response)
-
-
     })
+    console.log(queryURLYelp);
+
+    
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": corsAnywhere + queryURLYelp,
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx",
+
+        }
+      }
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
 
 
     // sets city name on page
@@ -264,6 +364,7 @@ $(document).ready(function() {
                 
                 $("#weather-body").append(newRow);
             }
+            $(".current-weather").html("Temperature (F): " + response.main.temp + "</br>Humidity: " + response.main.humidity + "</br>Sky coverage: " + response.weather[0].description + "</br>Wind speed (MPH): " + response.wind.speed)
             // incase weather datadoesnt exist
         }).fail(function() {
             $("#weather-text").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
@@ -273,3 +374,17 @@ $(document).ready(function() {
 
     // END OF ON CLICK FUNCTION FOR FIND CITY
     })
+
+    // var APIKeyCurrency = "eaa992c0be1e3c86d2a8"
+    // var queryURLCurrency = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP&compact=ultra&apiKey=eaa992c0be1e3c86d2a8"
+        
+    // $.ajax({
+    //     url: queryURLCurrency,
+    //     method: "GET"
+    // }).then(function(response) {
+    //     console.log(response)
+
+        
+    // })    
+})
+
