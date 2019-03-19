@@ -41,4 +41,28 @@
 
 .page-footer {
   text-align: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+tbody {
+  align-content: center;
+  text-align: center;
+}
+
+
+.events-div {
+  align-content: center;
+  width: 1500px;
+  text-align: center;
+  margin-left: 0px;
+  margin-right: 00px;
+}
+
+td {
+  width: 25%;
+}
+
+#event-container {
+  width: 100%;
 }
