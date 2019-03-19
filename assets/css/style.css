@@ -66,3 +66,13 @@ td {
 #event-container {
   width: 100%;
 }
+
+#data {
+  font-family: 'Times New Roman', Times, serif;
+  color: white;
+}
+
+.holidays-div {
+  background: rgb(230,230,230);
+  background: rgba(230,230,230, 0.6);
+}
