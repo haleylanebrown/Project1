@@ -7,6 +7,7 @@ var countries = [{
     image: ["assets/images/bruges1.jpg", "assets/images/bruges2.jpg", "assets/images/bruges3.jpg", "assets/images/bruges4.jpg"],
     code: "BA",
 },{
+
     code: "Be",
     latitude: "51.2093",
 },{
@@ -57,6 +58,39 @@ var countries = [{
     city: "Kraków",
     image: ["assets/images/kraków1.jpg", "assets/images/kraków2.jpg", "assets/images/kraków3.jpg", "assets/images/kraków4.jpg"],
     code: "PL",
+
+}, {
+    name: "Russia",
+    city: "Moscow",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "RU",
+
+}, {
+    name: "Slovakia",
+    city: "High Tatras",
+    image: ["assets/images/high-tatras1.jpg", "assets/images/high-tatras2.jpg", "assets/images/high-tatras3.jpg", "assets/images/high-tatras4.jpg"],
+    code: "SK",
+
+}, {
+    name: "Sierra Leone",
+    city: "Freetown",
+    image: ["assets/images/freetown1.jpg", "assets/images/freetown2.jpg", "assets/images/freetown3.jpg", "assets/images/freetown4.jpg"],
+    code: "SL",
+
+}, {
+    name: "Vietnam",
+    city: "Hoi An",
+    image: ["assets/images/hoi-an1.jpg", "assets/images/hoi-an2.jpg", "assets/images/hoi-an3.jpg", "assets/images/hoi-an4.jpg"],
+    code: "VN",
+
+}, {
+    name: "Indonesia",
+    city: "Bali",
+    image: ["assets/images/bali1.jpg", "assets/images/bali2.jpg", "assets/images/bali3.jpg", "assets/images/bali4.jpg"],
+    code: "ID",
+
+}
+];
 
 
 }, 
@@ -116,6 +150,11 @@ var cityNumber = (Math.floor(Math.random()* countries.length));
 $(".city-name").text(countries[cityNumber].city)
 $(".country-name").text(countries[cityNumber].name)
 
+
+$(".find-city").on("click", function(event) {
+var cityNumber = (Math.floor(Math.random()* countries.length));
+$(".city-name").text(countries[cityNumber].city)
+$(".country-name").text(countries[cityNumber].name)
 
 $(".find-city").on("click", function (event) {
 
@@ -200,6 +239,8 @@ $(document).ready(function() {
         });
 
 }) 
+
+// })
 
 
 
@@ -290,13 +331,49 @@ $(document).ready(function() {
             url: queryURLWeather,
             method: "GET"
         }).then(function(response) {
+            console.log(response)
+            for (var i=0; i<5; i++) {
+                $("#weather-text").empty("");
+                $("#weather-text").attr("class", "teal-text")
+                $("#weather-text").append("<h3>5 day forecast</h3>");
+                $("#weather-head").empty("");
+                var weatherHeader = $("<tr>").append(
+                    $("<th>").text("Date").css("font-weight","Bold"),
+                    $("<th>").text("Temperature (F)").css("font-weight","Bold"),
+                    $("<th>").text("Humidity %").css("font-weight","Bold"),
+                    $("<th>").text("Sky coverage").css("font-weight","Bold"),
+                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+                );
+                $("#weather-head").append(weatherHeader);
+                var weatherDay = response.list[i].dt_txt;
+                var weatherTemp = response.list[i].main.temp;
+                var weatherHumidity = response.list[i].main.humidity;
+                var weatherCloud = response.list[i].weather[0].description; 
+                var weatherSpeed = response.list[i].wind.speed;
+
+
+
+                var newRow = $("<tr>").append(
+                    $("<td>").text(weatherDay), 
+                    $("<td>").html(weatherTemp),
+                    $("<td>").text(weatherHumidity),
+                    $("<td>").text(weatherCloud),
+                    $("<td>").text(weatherSpeed),  
+                      
+                )
+                
+                $("#weather-body").append(newRow);
+            }
             $(".current-weather").html("Temperature (F): " + response.main.temp + "</br>Humidity: " + response.main.humidity + "</br>Sky coverage: " + response.weather[0].description + "</br>Wind speed (MPH): " + response.wind.speed)
             // incase weather datadoesnt exist
         }).fail(function() {
-            $(".current-weather").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
+            $("#weather-text").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
 
         });
 
+
+    // END OF ON CLICK FUNCTION FOR FIND CITY
+    })
 
     // var APIKeyCurrency = "eaa992c0be1e3c86d2a8"
     // var queryURLCurrency = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP&compact=ultra&apiKey=eaa992c0be1e3c86d2a8"
