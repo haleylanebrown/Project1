@@ -210,7 +210,7 @@ $(document).ready(function() {
     // AJAX CALL FOR Weather
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-    var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&cnt=7&appid=" + APIKeyWeather;
     //api key for flight
 
 
