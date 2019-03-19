@@ -109,6 +109,7 @@ $(".find-city").on("click", function (event) {
     $(".city-name").text(countries[cityNumber].city)
     $(".country-name").text(countries[cityNumber].name)
 
+
     $("#image1").attr("src", countries[cityNumber].image[0]);
     $("#image2").attr("src", countries[cityNumber].image[1]);
     $("#image3").attr("src", countries[cityNumber].image[2]);
@@ -173,7 +174,7 @@ $(".find-city").on("click", function (event) {
     // AJAX CALL FOR HOLIDAYS
     if (countries[cityNumber].code === "NONE") {
         $("#data").empty();
-        $("#data").append("My apologies. Holiday information is unavailable");
+        $("#data").append("Holiday information unavailable at this time");
 
     }
     else {
@@ -206,10 +207,10 @@ $(".find-city").on("click", function (event) {
     // END AJAX CALL FOR HOLIDAYS
 
 
-    // AJAX CALL FOR YELP
+    // AJAX CALL FOR RESTAUTANTS
     var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
     var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
-    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&limit=5&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -220,11 +221,40 @@ $(".find-city").on("click", function (event) {
 
         }
     }
-
     $.ajax(settings).done(function (response) {
         console.log(response);
+
+        $("#restaurants-body").empty();
+        $("#restaurants-head").empty();
+        var newHeader = $("<tr>").append(
+            $("<th>").text("Yelp Link:").css("font-weight", "Bold"),
+            $("<th>").text("Restaurant Name:").css("font-weight", "Bold"),
+            $("<th>").text("Rating:").css("font-weight", "Bold"),
+            $("<th>").text("Price:").css("font-weight", "Bold"),
+            $("<th>").text("Category:").css("font-weight", "Bold"),
+        )
+        $("#restaurants-head").append(newHeader);
+
+        for (var i = 0; i < response.businesses.length; i++) {
+            var restaurantURL = response.businesses[i].url
+            var restaurantName = response.businesses[i].name
+            var restaurantRating = response.businesses[i].rating
+            var restaurantPrice = response.businesses[i].price
+            var restaurantType = response.businesses[i].categories[0].title;
+
+            var newRow = $("<tr>").append(
+                $("<td>").html("<a id='yelp' href='" + restaurantURL + "'>Yelp page</a>"),
+                $("<td>").text(restaurantName),
+                $("<td>").text(restaurantRating),
+                $("<td>").text(restaurantPrice),
+                $("<td>").text(restaurantType),
+
+            )
+            $("#yelp").attr('target', '_blank')
+            $("#restaurants-body").append(newRow);
+        }
     });
-    // END AJAX CALL FOR YELP
+    // END AJAX CALL FOR RESTAUTANTS
 
 
 
@@ -233,51 +263,52 @@ $(".find-city").on("click", function (event) {
 
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&cnt=7&appid=" + APIKeyWeather;
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
 
-    //weather call
+
+
         $.ajax({
             url: queryURLWeather,
             method: "GET"
         }).then(function (response) {
             console.log(response)
-            $("#weather-head").empty("");
-            $("#weather-text").empty("");
-            $("#weather-text").append("<h3>5 day forecast</h3>");
+            $("#weather-body").empty();
+            $("#weather-head").empty();
+            $("#weather-text").empty();
+            $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+            $("#weather-text").attr("class", "teal-text");
+            var weatherHeader = $("<tr>").append(
+                $("<th>").text("Date").css("font-weight", "Bold"),
+                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+            );
+            $("#weather-head").append(weatherHeader);
+            for (var i = 0; i < 40; i += 8) {
 
-            for (var i = 0; i < 5; i++) {
-                $("#weather-text").attr("class", "teal-text")
-                var weatherHeader = $("<tr>").append(
-                    $("<th>").text("Date").css("font-weight", "Bold"),
-                    $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                    $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-                );
-                $("#weather-head").append(weatherHeader);
-                var weatherDay = response.list[i].dt_txt;
+                
+                var uglyWeatherDay = response.list[i].dt_txt;
+                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
+
                 var weatherTemp = response.list[i].main.temp;
                 var weatherHumidity = response.list[i].main.humidity;
                 var weatherCloud = response.list[i].weather[0].description;
                 var weatherSpeed = response.list[i].wind.speed;
                 var newRow = $("<tr>").append(
-                    $("<td>").text(weatherDay),
+                    $("<td>").text(prettyWeatherDay),
                     $("<td>").html(weatherTemp),
                     $("<td>").text(weatherHumidity),
                     $("<td>").text(weatherCloud),
                     $("<td>").text(weatherSpeed),
 
                 )
+                $("#weather-body").append(newRow)
 
-                $("#weather-body").append(newRow);
-            }
-            // incase weather datadoesnt exist
-        }).fail(function () {
-            $("#weather-text").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
+    }});
 
-        });
- 
 
     // END AJAX CALL FOR Weather
 

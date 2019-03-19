@@ -88,7 +88,7 @@
 
     </div>
 
-    <div class="parallax-container center valign-wrapper">
+    <div class="parallax-container center valign-wrapper" id="weather-parallax">
         <div class="parallax">
             <img id="image2" src="assets/images/travel2.jpg">
         </div>
@@ -99,7 +99,7 @@
                     <h2 class="teal-text weather-title">Weather</h2>
                     <span id="weather-text"></span>
                     <div class="container  weather-div">
-                        <table class="table">
+                        <table class="table weather-table" id="weather-table">
                             <thead id="weather-head"></thead>
                             <tbody id="weather-body"></tbody>
                         </table>
@@ -144,10 +144,12 @@
             <div class="row">
                 <div class="col s12">
                     <h2 class="teal-text restaurants-title">Restaurants</h2>
-                    <p class="light center-align">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec
-                        volutpat.
-                    </p>
+                    <div class="container restaurants-div">
+                        <table class="rTable">
+                            <thead id="restaurants-head"></thead>
+                            <tbody id="restaurants-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
