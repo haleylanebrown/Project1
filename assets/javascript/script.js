@@ -112,6 +112,7 @@ $(".find-city").on("click", function (event) {
     $(".city-name").text(countries[cityNumber].city)
     $(".country-name").text(countries[cityNumber].name)
 
+
     $("#image1").attr("src", countries[cityNumber].image[0]);
     $("#image2").attr("src", countries[cityNumber].image[1]);
     $("#image3").attr("src", countries[cityNumber].image[2]);
@@ -266,48 +267,48 @@ $(".find-city").on("click", function (event) {
 
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&cnt=7&appid=" + APIKeyWeather;
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
+    
 
     //weather call
-    $.ajax({
-        url: queryURLWeather,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response)
-        $("#weather-head").empty("");
-        $("#weather-text").empty("");
-        $("#weather-text").append("<h3>5 day forecast</h3>");
 
-        for (var i = 0; i < 5; i++) {
-            $("#weather-text").attr("class", "teal-text")
-            var weatherHeader = $("<tr>").append(
-                $("<th>").text("Date").css("font-weight", "Bold"),
-                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-            );
-            $("#weather-head").append(weatherHeader);
-            var weatherDay = response.list[i].dt_txt;
-            var weatherTemp = response.list[i].main.temp;
-            var weatherHumidity = response.list[i].main.humidity;
-            var weatherCloud = response.list[i].weather[0].description;
-            var weatherSpeed = response.list[i].wind.speed;
-            var newRow = $("<tr>").append(
-                $("<td>").text(weatherDay),
-                $("<td>").html(weatherTemp),
-                $("<td>").text(weatherHumidity),
-                $("<td>").text(weatherCloud),
-                $("<td>").text(weatherSpeed),
+        $.ajax({
+            url: queryURLWeather,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response)
+            $("#weather-body").empty();
+            for (var i = 0; i < 40; i += 8) {
 
-            )
+                $("#weather-head").empty("");
+                $("#weather-text").empty("");
+                $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+                $("#weather-text").attr("class", "teal-text")
+                var weatherHeader = $("<tr>").append(
+                    $("<th>").text("Date").css("font-weight", "Bold"),
+                    $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                    $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+                );
+                $("#weather-head").append(weatherHeader);
+                var uglyWeatherDay = response.list[i].dt_txt;
+                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
 
-            $("#weather-body").append(newRow);
-        }
-        // incase weather datadoesnt exist
-    }).fail(function () {
-        $("#weather-text").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
+                var weatherTemp = response.list[i].main.temp;
+                var weatherHumidity = response.list[i].main.humidity;
+                var weatherCloud = response.list[i].weather[0].description;
+                var weatherSpeed = response.list[i].wind.speed;
+                var newRow = $("<tr class='weather-table-rows'>").append(
+                    $("<td>").text(prettyWeatherDay),
+                    $("<td>").html(weatherTemp),
+                    $("<td>").text(weatherHumidity),
+                    $("<td>").text(weatherCloud),
+                    $("<td>").text(weatherSpeed),
+
+                )
 
     });
 
