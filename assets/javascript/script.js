@@ -178,7 +178,7 @@ $(".find-city").on("click", function (event) {
     // AJAX CALL FOR HOLIDAYS
     if (countries[cityNumber].code === "NONE") {
         $("#data").empty();
-        $("#data").append("My apologies. Holiday information is unavailable");
+        $("#data").append("Holiday information unavailable at this time");
 
     }
     else {
@@ -269,47 +269,47 @@ $(".find-city").on("click", function (event) {
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
-    
+
 
     //weather call
 
-        $.ajax({
-            url: queryURLWeather,
-            method: "GET"
-        }).then(function (response) {
-            console.log(response)
-            $("#weather-body").empty();
-            for (var i = 0; i < 40; i += 8) {
+    $.ajax({
+        url: queryURLWeather,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+        $("#weather-body").empty();
+        for (var i = 0; i < 40; i += 8) {
 
-                $("#weather-head").empty("");
-                $("#weather-text").empty("");
-                $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
-                $("#weather-text").attr("class", "teal-text")
-                var weatherHeader = $("<tr>").append(
-                    $("<th>").text("Date").css("font-weight", "Bold"),
-                    $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                    $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-                );
-                $("#weather-head").append(weatherHeader);
-                var uglyWeatherDay = response.list[i].dt_txt;
-                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
-                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
+            $("#weather-head").empty("");
+            $("#weather-text").empty("");
+            $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+            $("#weather-text").attr("class", "teal-text")
+            var weatherHeader = $("<tr>").append(
+                $("<th>").text("Date").css("font-weight", "Bold"),
+                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+            );
+            $("#weather-head").append(weatherHeader);
+            var uglyWeatherDay = response.list[i].dt_txt;
+            var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+            var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
 
-                var weatherTemp = response.list[i].main.temp;
-                var weatherHumidity = response.list[i].main.humidity;
-                var weatherCloud = response.list[i].weather[0].description;
-                var weatherSpeed = response.list[i].wind.speed;
-                var newRow = $("<tr class='weather-table-rows'>").append(
-                    $("<td>").text(prettyWeatherDay),
-                    $("<td>").html(weatherTemp),
-                    $("<td>").text(weatherHumidity),
-                    $("<td>").text(weatherCloud),
-                    $("<td>").text(weatherSpeed),
+            var weatherTemp = response.list[i].main.temp;
+            var weatherHumidity = response.list[i].main.humidity;
+            var weatherCloud = response.list[i].weather[0].description;
+            var weatherSpeed = response.list[i].wind.speed;
+            var newRow = $("<tr class='weather-table-rows'>").append(
+                $("<td>").text(prettyWeatherDay),
+                $("<td>").html(weatherTemp),
+                $("<td>").text(weatherHumidity),
+                $("<td>").text(weatherCloud),
+                $("<td>").text(weatherSpeed),
 
-                )
-
+            )
+        }
     });
 
 
