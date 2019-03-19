@@ -7,72 +7,103 @@ var countries = [{
     image: ["assets/images/bruges1.jpg", "assets/images/bruges2.jpg", "assets/images/bruges3.jpg", "assets/images/bruges4.jpg"],
     code: "BA",
 },{
+    code: "Be",
+    latitude: "51.2093",
+},{
+
     name: "Brazil",
     city: "Rio de Janeiro",
     image: ["assets/images/riodejaneiro1.jpg", "assets/images/riodejaneiro2.jpg", "assets/images/riodejaneiro3.jpg", "assets/images/riodejaneiro4.jpg"],
     code: "BR",
+
 }, {
     name: "Canada",
     city: "Vancouver",
     image: ["assets/images/vancouver1.jpg", "assets/images/vancouver2.jpg", "assets/images/vancouver3.jpg", "assets/images/vancouver4.jpg"],
     code: "CA",
+
 }, {
     name: "Czech Republic",
-    city: "Prague",
+    city: "Praha",
     image: ["assets/images/prague1.jpg", "assets/images/prague2.jpg", "assets/images/prague3.jpg", "assets/images/prague4.jpg"],
     code: "CZ",
+
 }, {
     name: "Denmark",
-    city: "Helsingør",
+    city: "København",
     image: ["assets/images/helsingør1.jpg", "assets/images/helsingør2.jpg", "assets/images/helsingør3.jpg", "assets/images/helsingør4.jpg"],
     code: "DK",
+
 }, {
     name: "Germany",
     city: "Berlin",
     image: ["assets/images/berlin1.jpg", "assets/images/berlin2.jpg", "assets/images/berlin3.jpg", "assets/images/berlin4.jpg"],
     code: "DE",
+
 }, {
     name: "France",
     city: "Bordeaux",
     image: ["assets/images/bordeaux1.jpg", "assets/images/bordeaux2.jpg", "assets/images/bordeaux3.jpg", "assets/images/bordeaux4.jpg"],
     code: "FR",
+
 }, {
     name: "Norway",
     city: "Oslo",
     image: ["assets/images/oslo1.jpg", "assets/images/oslo2.jpg", "assets/images/oslo3.jpg", "assets/images/oslo4.jpg"],
     code: "NO",
+
 }, {
     name: "Poland",
     city: "Kraków",
     image: ["assets/images/kraków1.jpg", "assets/images/kraków2.jpg", "assets/images/kraków3.jpg", "assets/images/kraków4.jpg"],
     code: "PL",
-}, {
-    name: "Russia",
-    city: "Moscow",
+
+
+}, 
+// NEWLY ADDED CITIES
+{
+    name: "Argentina",
+    city: "Buenos Aires",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
-    code: "RU",
-}, {
-    name: "Slovakia",
-    city: "High Tatras",
-    image: ["assets/images/high-tatras1.jpg", "assets/images/high-tatras2.jpg", "assets/images/high-tatras3.jpg", "assets/images/high-tatras4.jpg"],
-    code: "SK",
-}, {
-    name: "Sierra Leone",
-    city: "Freetown",
-    image: ["assets/images/freetown1.jpg", "assets/images/freetown2.jpg", "assets/images/freetown3.jpg", "assets/images/freetown4.jpg"],
-    code: "SL",
-}, {
-    name: "Vietnam",
-    city: "Hoi An",
-    image: ["assets/images/hoi-an1.jpg", "assets/images/hoi-an2.jpg", "assets/images/hoi-an3.jpg", "assets/images/hoi-an4.jpg"],
-    code: "VN",
-}, {
-    name: "Indonesia",
-    city: "Bali",
-    image: ["assets/images/bali1.jpg", "assets/images/bali2.jpg", "assets/images/bali3.jpg", "assets/images/bali4.jpg"],
-    code: "ID",
-}
-];
+
+    code: "NONE",
+
+},{
+    name: "Australia",
+    city: "Sydney",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Austria",
+    city: "Wien",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Chile",
+    city: "Santiago",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Philippines",
+    city: "Manila",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},{
+    name: "Singapore",
+    city: "Singapore",
+    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    code: "NONE",
+
+},
+
+
+
+
+
 
 
 $(document).ready(function () {
@@ -85,9 +116,22 @@ var cityNumber = (Math.floor(Math.random()* countries.length));
 $(".city-name").text(countries[cityNumber].city)
 $(".country-name").text(countries[cityNumber].name)
 
+
+$(".find-city").on("click", function (event) {
+
+    var cityNumber = (Math.floor(Math.random() * countries.length));
+    $(".city-name").text(countries[cityNumber].city)
+    $(".country-name").text(countries[cityNumber].name)
+
+
+
+
 var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
 var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
 
+
+
+$(document).ready(function() {
 
     $("#image1").attr("src", countries[cityNumber].image[0]);
     $("#image2").attr("src", countries[cityNumber].image[1]);
@@ -103,8 +147,16 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
             url: queryURLEvents,
             method: "GET"
         }).then (function(response){
+
+
+            $("tbody").empty();
+            $("thead").empty();
+
+            console.log(response)
+
             $("#events-body").empty();
             $("#events-head").empty();
+
            
 
         if (response.events.length >= 1) {
@@ -147,8 +199,19 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
 
         });
 
+}) 
+
+
+
+
 
     // AJAX CALL FOR HOLIDAYS
+    if (countries[cityNumber].code === "NONE"){
+        $("#data").empty();
+        $("#data").append("My apologies. Holiday information is unavailable");
+
+    }
+    else {
     var year = moment().format("YYYY");
     var month = moment().format("MM");
     var day = moment().format("DD");
@@ -173,7 +236,7 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
             holidayDate.append(prettyDate);
             $("#data").append(holidayName, holidayDate);
         }
-    })
+    })};
 
 
     // AJAX CALL FOR Weather
@@ -185,7 +248,8 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
 
     // AJAX CALL FOR YELP
     var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
-    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=denver";
+    var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
 
     $.ajax({
         url: queryURLYelp,
@@ -198,6 +262,23 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
     }).then(function (response) {
         console.log(response)
     })
+    console.log(queryURLYelp);
+
+    
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": corsAnywhere + queryURLYelp,
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx",
+
+        }
+      }
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
 
 
     // sets city name on page
@@ -209,7 +290,6 @@ var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4
             url: queryURLWeather,
             method: "GET"
         }).then(function(response) {
-            console.log(response)
             $(".current-weather").html("Temperature (F): " + response.main.temp + "</br>Humidity: " + response.main.humidity + "</br>Sky coverage: " + response.weather[0].description + "</br>Wind speed (MPH): " + response.wind.speed)
             // incase weather datadoesnt exist
         }).fail(function() {
