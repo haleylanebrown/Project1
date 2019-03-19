@@ -30,7 +30,7 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
-.weather-title, .holidays-title, .flights-title {
+.weather-title, .holidays-title, .flights-title, #weather-text {
   font-family: 'Times New Roman', Times, serif;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
@@ -66,3 +66,16 @@ td {
 #event-container {
   width: 100%;
 }
+
+.weather-div {
+  background: rgb(230, 230, 230);
+  background:rgba(230, 230, 230, 0.6);
+  color:white;
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif
+
+}
+#weather-text {
+  font-size: 16px;
+}
+
