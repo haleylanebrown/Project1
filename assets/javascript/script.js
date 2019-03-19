@@ -279,20 +279,21 @@ $(".find-city").on("click", function (event) {
         }).then(function (response) {
             console.log(response)
             $("#weather-body").empty();
+            $("#weather-head").empty();
+            $("#weather-text").empty();
+            $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+            $("#weather-text").attr("class", "teal-text");
+            var weatherHeader = $("<tr>").append(
+                $("<th>").text("Date").css("font-weight", "Bold"),
+                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+            );
+            $("#weather-head").append(weatherHeader);
             for (var i = 0; i < 40; i += 8) {
 
-                $("#weather-head").empty("");
-                $("#weather-text").empty("");
-                $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
-                $("#weather-text").attr("class", "teal-text")
-                var weatherHeader = $("<tr>").append(
-                    $("<th>").text("Date").css("font-weight", "Bold"),
-                    $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                    $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-                );
-                $("#weather-head").append(weatherHeader);
+                
                 var uglyWeatherDay = response.list[i].dt_txt;
                 var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
                 var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
@@ -301,7 +302,7 @@ $(".find-city").on("click", function (event) {
                 var weatherHumidity = response.list[i].main.humidity;
                 var weatherCloud = response.list[i].weather[0].description;
                 var weatherSpeed = response.list[i].wind.speed;
-                var newRow = $("<tr class='weather-table-rows'>").append(
+                var newRow = $("<tr>").append(
                     $("<td>").text(prettyWeatherDay),
                     $("<td>").html(weatherTemp),
                     $("<td>").text(weatherHumidity),
@@ -309,8 +310,9 @@ $(".find-city").on("click", function (event) {
                     $("<td>").text(weatherSpeed),
 
                 )
+                $("#weather-body").append(newRow)
 
-    });
+    }});
 
 
     // END AJAX CALL FOR Weather
