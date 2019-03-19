@@ -134,8 +134,8 @@ $(document).ready(function() {
         }).then (function(response){
             console.log(response)
 
-            $("tbody").empty();
-            $("thead").empty();
+            $("#events-body").empty();
+            $("#events-head").empty();
            
 
         if (response.events.length >= 1) {
@@ -145,7 +145,7 @@ $(document).ready(function() {
                 $("<th>").text("Snapshot:").css("font-weight","Bold"),
                 $("<th>").text("Date:").css("font-weight","Bold")
             )
-            $("thead").append(newHeader);
+            $("#events-head").append(newHeader);
 
             for (var i=0; i<5; i++) {
                 var eventName = response.events[i].name.text
@@ -168,11 +168,11 @@ $(document).ready(function() {
                     $("<td>").text(finalDate),     
                 )
                 
-                $("tbody").append(newRow);
+                $("#events-body").append(newRow);
             }
         } else {
             var none = $()
-            $("thead").append($("<h5>Sorry, no event data available for this city.</h5>"));
+            $("#events-head").append($("<h5>Sorry, no event data available for this city.</h5>"));
         }
         })
 
