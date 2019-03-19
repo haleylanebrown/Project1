@@ -86,6 +86,7 @@ $(".find-city").on("click", function (event) {
     $(".country-name").text(countries[cityNumber].name)
 
 
+  
 
     // AJAX CALL FOR HOLIDAYS
     var year = moment().format("YYYY");
@@ -124,10 +125,29 @@ $(".find-city").on("click", function (event) {
         url: queryURLWeather,
         method: "GET"
     }).then(function (response) {
-        console.log(response)
+        // console.log(response)
         $(".current-weather").html("Temperature (F): " + response.main.temp + "</br>Humidity: " + response.main.humidity + "</br>Sky coverage: " + response.weather[0].description + "</br>Wind speed (MPH): " + response.wind.speed)
     })
 
+
+
+    // AJAX CALL FOR ZOMATO
+    var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=denver";
+
+    $.ajax({
+        url: queryURLYelp,
+        method: "GET",
+        Authorization: "Bearer vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx",
+        cache: true,
+        crossDomain: true,
+        dataType: "jsonp",
+        contentType: "application/json"
+    }).then(function (response) {
+        console.log(response)
+
+
+    })
 
     // END OF ON CLICK FUNCTION FOR FIND CITY
 })
