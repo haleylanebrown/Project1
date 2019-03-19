@@ -211,10 +211,10 @@ $(".find-city").on("click", function (event) {
     // END AJAX CALL FOR HOLIDAYS
 
 
-    // AJAX CALL FOR YELP
+    // AJAX CALL FOR RESTAUTANTS
     var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
     var corsAnywhere = "https://cors-anywhere.herokuapp.com/";
-    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurant&radius=40000&limit=5&location=" + countries[cityNumber].city + "%2C%20" + countries[cityNumber].name;
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -225,11 +225,40 @@ $(".find-city").on("click", function (event) {
 
         }
     }
-
     $.ajax(settings).done(function (response) {
         console.log(response);
+
+        $("#restaurants-body").empty();
+        $("#restaurants-head").empty();
+        var newHeader = $("<tr>").append(
+            $("<th>").text("Yelp Link:").css("font-weight", "Bold"),
+            $("<th>").text("Restaurant Name:").css("font-weight", "Bold"),
+            $("<th>").text("Rating:").css("font-weight", "Bold"),
+            $("<th>").text("Price:").css("font-weight", "Bold"),
+            $("<th>").text("Category:").css("font-weight", "Bold"),
+        )
+        $("#restaurants-head").append(newHeader);
+
+        for (var i = 0; i < response.businesses.length; i++) {
+            var restaurantURL = response.businesses[i].url
+            var restaurantName = response.businesses[i].name
+            var restaurantRating = response.businesses[i].rating
+            var restaurantPrice = response.businesses[i].price
+            var restaurantType = response.businesses[i].categories[0].title;
+
+            var newRow = $("<tr>").append(
+                $("<td>").html("<a id='yelp' href='" + restaurantURL + "'>Yelp page</a>"),
+                $("<td>").text(restaurantName),
+                $("<td>").text(restaurantRating),
+                $("<td>").text(restaurantPrice),
+                $("<td>").text(restaurantType),
+
+            )
+            $("#yelp").attr('target', '_blank')
+            $("#restaurants-body").append(newRow);
+        }
     });
-    // END AJAX CALL FOR YELP
+    // END AJAX CALL FOR RESTAUTANTS
 
 
 
@@ -243,6 +272,7 @@ $(".find-city").on("click", function (event) {
     
 
     //weather call
+
         $.ajax({
             url: queryURLWeather,
             method: "GET"
@@ -280,14 +310,8 @@ $(".find-city").on("click", function (event) {
 
                 )
 
-                $("#weather-body").append(newRow);
-            }
-            // incase weather datadoesnt exist
-        }).fail(function () {
-            $("#weather-text").html("No weather data exists for " + countries[cityNumber].city + ", " + countries[cityNumber].name)
+    });
 
-        });
- 
 
     // END AJAX CALL FOR Weather
 
