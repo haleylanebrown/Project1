@@ -1,7 +1,3 @@
-$(document).ready(function () {
-    $('.parallax').parallax();
-    $(".dropdown-trigger").dropdown();
-});
 
 
 var countries = [{
@@ -96,7 +92,21 @@ var countries = [{
 }
 ];
 
-<<<
+
+$(document).ready(function () {
+    $('.parallax').parallax();
+    $(".dropdown-trigger").dropdown();
+});
+
+
+
+$(".find-city").on("click", function (event) {
+
+    var cityNumber = (Math.floor(Math.random() * countries.length));
+    $(".city-name").text(countries[cityNumber].city)
+    $(".country-name").text(countries[cityNumber].name)
+
+
 $(".find-city").on("click", function(event) {
 var cityNumber = (Math.floor(Math.random()* countries.length));
 $(".city-name").text(countries[cityNumber].city)
@@ -171,11 +181,9 @@ $(document).ready(function() {
 
 })
 
+
   
 
-$(".find-city").on("click", function(event) {
-    //finds random city in array
-    var cityNumber = (Math.floor(Math.random()* countries.length)); 
     // AJAX CALL FOR HOLIDAYS
     var year = moment().format("YYYY");
     var month = moment().format("MM");
@@ -198,12 +206,33 @@ $(".find-city").on("click", function(event) {
         }
     })
 
+
+    // AJAX CALL FOR Weather
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-    var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + countries[cityNumber].city + "," + countries[cityNumber].name +  "&units=imperial&appid=" + APIKeyWeather;
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
     //api key for flight
-  
-   
+
+
+    // AJAX CALL FOR YELP
+    var APIKeyYelp = "vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx";
+    var queryURLYelp = "https://api.yelp.com/v3/businesses/search?term=restaurants&location=denver";
+
+    $.ajax({
+        url: queryURLYelp,
+        method: "GET",
+        Authorization: "Bearer vM6YWm9IAxDZYTbuxk8D_w1rBB0rxOtmRZW_xkTwsmSM93dTTRHRdXShK9PM8TW64q-cxa-YpYSM47o-b5U-rtQoNMrdxHm--JFfFakqzqIAlZDtwmtxl7hASvCPXHYx",
+        cache: true,
+        crossDomain: true,
+        dataType: "jsonp",
+        contentType: "application/json"
+    }).then(function (response) {
+        console.log(response)
+
+
+    })
+
+
     // sets city name on page
     $(".city-name").text(countries[cityNumber].city);
     $(".country-name").text(countries[cityNumber].name);
@@ -222,5 +251,5 @@ $(".find-city").on("click", function(event) {
         });
 
 
-
-
+    // END OF ON CLICK FUNCTION FOR FIND CITY
+})
