@@ -7,88 +7,70 @@ var countries = [{
     image: ["assets/images/bruges1.jpg", "assets/images/bruges2.jpg", "assets/images/bruges3.jpg", "assets/images/bruges4.jpg"],
     code: "BA",
 },{
-    image: "",
-    code: "Be",
-    flight: "Brussels"
-}, {
-
     name: "Brazil",
     city: "Rio de Janeiro",
     image: ["assets/images/riodejaneiro1.jpg", "assets/images/riodejaneiro2.jpg", "assets/images/riodejaneiro3.jpg", "assets/images/riodejaneiro4.jpg"],
     code: "BR",
-    flight: "Rio de Janeiro"
 }, {
     name: "Canada",
     city: "Vancouver",
     image: ["assets/images/vancouver1.jpg", "assets/images/vancouver2.jpg", "assets/images/vancouver3.jpg", "assets/images/vancouver4.jpg"],
     code: "CA",
-    flight: "Vancouver"
 }, {
     name: "Czech Republic",
     city: "Prague",
     image: ["assets/images/prague1.jpg", "assets/images/prague2.jpg", "assets/images/prague3.jpg", "assets/images/prague4.jpg"],
     code: "CZ",
-    flight: "Prague"
 }, {
     name: "Denmark",
     city: "Helsingør",
     image: ["assets/images/helsingør1.jpg", "assets/images/helsingør2.jpg", "assets/images/helsingør3.jpg", "assets/images/helsingør4.jpg"],
     code: "DK",
-    flight: "Copenhagen"
 }, {
     name: "Germany",
     city: "Berlin",
     image: ["assets/images/berlin1.jpg", "assets/images/berlin2.jpg", "assets/images/berlin3.jpg", "assets/images/berlin4.jpg"],
     code: "DE",
-    flight: "Berlin"
 }, {
     name: "France",
     city: "Bordeaux",
     image: ["assets/images/bordeaux1.jpg", "assets/images/bordeaux2.jpg", "assets/images/bordeaux3.jpg", "assets/images/bordeaux4.jpg"],
     code: "FR",
-    flight: "Bordeaux"
 }, {
     name: "Norway",
     city: "Oslo",
     image: ["assets/images/oslo1.jpg", "assets/images/oslo2.jpg", "assets/images/oslo3.jpg", "assets/images/oslo4.jpg"],
     code: "NO",
-    flight: "Oslo"
 }, {
     name: "Poland",
     city: "Kraków",
     image: ["assets/images/kraków1.jpg", "assets/images/kraków2.jpg", "assets/images/kraków3.jpg", "assets/images/kraków4.jpg"],
     code: "PL",
-    flight: "Krakow"
 }, {
     name: "Russia",
-    city: "Novosibirsk",
+    city: "Moscow",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "RU",
-    flight: "Novosibirsk"
 }, {
     name: "Slovakia",
     city: "High Tatras",
     image: ["assets/images/high-tatras1.jpg", "assets/images/high-tatras2.jpg", "assets/images/high-tatras3.jpg", "assets/images/high-tatras4.jpg"],
     code: "SK",
-    flight: "Kosice"
 }, {
     name: "Sierra Leone",
     city: "Freetown",
     image: ["assets/images/freetown1.jpg", "assets/images/freetown2.jpg", "assets/images/freetown3.jpg", "assets/images/freetown4.jpg"],
     code: "SL",
-    flight: "Sierra Leone"
 }, {
     name: "Vietnam",
     city: "Hoi An",
     image: ["assets/images/hoi-an1.jpg", "assets/images/hoi-an2.jpg", "assets/images/hoi-an3.jpg", "assets/images/hoi-an4.jpg"],
     code: "VN",
-    flight: "Da Nang"
 }, {
     name: "Indonesia",
     city: "Bali",
     image: ["assets/images/bali1.jpg", "assets/images/bali2.jpg", "assets/images/bali3.jpg", "assets/images/bali4.jpg"],
     code: "ID",
-    flight: "Bali"
 }
 ];
 
@@ -98,15 +80,6 @@ $(document).ready(function () {
     $(".dropdown-trigger").dropdown();
 });
 
-
-
-$(".find-city").on("click", function (event) {
-
-    var cityNumber = (Math.floor(Math.random() * countries.length));
-    $(".city-name").text(countries[cityNumber].city)
-    $(".country-name").text(countries[cityNumber].name)
-
-
 $(".find-city").on("click", function(event) {
 var cityNumber = (Math.floor(Math.random()* countries.length));
 $(".city-name").text(countries[cityNumber].city)
@@ -115,7 +88,6 @@ $(".country-name").text(countries[cityNumber].name)
 var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
 var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
 
-$(document).ready(function() {
 
     $("#image1").attr("src", countries[cityNumber].image[0]);
     $("#image2").attr("src", countries[cityNumber].image[1]);
@@ -127,13 +99,10 @@ $(document).ready(function() {
         url: queryURLEventsToken,
         method: "GET"
     }).then (function(response){
-        console.log(response)
         $.ajax({
             url: queryURLEvents,
             method: "GET"
         }).then (function(response){
-            console.log(response)
-
             $("#events-body").empty();
             $("#events-head").empty();
            
@@ -177,12 +146,7 @@ $(document).ready(function() {
         })
 
         });
-}) 
 
-})
-
-
-  
 
     // AJAX CALL FOR HOLIDAYS
     var year = moment().format("YYYY");
@@ -199,9 +163,14 @@ $(document).ready(function() {
         for (var i = 0; i < response.holidays.length; i++) {
             var holidayName = $("<div>");
             var holidayDate = $("<div>");
+            
+            var uglyDate = response.holidays[i].date
+            var convertingDate = moment(uglyDate, "YYYY-MM-DD");
+            var prettyDate = (convertingDate).format("MMMM Do YYYY");
+            console.log(prettyDate);
 
             holidayName.append(response.holidays[i].name);
-            holidayDate.append(response.holidays[i].date);
+            holidayDate.append(prettyDate);
             $("#data").append(holidayName, holidayDate);
         }
     })
@@ -228,8 +197,6 @@ $(document).ready(function() {
         contentType: "application/json"
     }).then(function (response) {
         console.log(response)
-
-
     })
 
 
@@ -251,5 +218,16 @@ $(document).ready(function() {
         });
 
 
-    // END OF ON CLICK FUNCTION FOR FIND CITY
+    // var APIKeyCurrency = "eaa992c0be1e3c86d2a8"
+    // var queryURLCurrency = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP&compact=ultra&apiKey=eaa992c0be1e3c86d2a8"
+        
+    // $.ajax({
+    //     url: queryURLCurrency,
+    //     method: "GET"
+    // }).then(function(response) {
+    //     console.log(response)
+
+        
+    // })    
 })
+
