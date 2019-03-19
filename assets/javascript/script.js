@@ -63,6 +63,7 @@ var countries = [{
     name: "Argentina",
     city: "Buenos Aires",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+
     code: "NONE",
 
 },{
@@ -96,6 +97,35 @@ var countries = [{
     code: "NONE",
 
 },
+
+    code: "RU",
+    flight: "Novosibirsk"
+}, {
+    name: "Slovakia",
+    city: "High Tatras",
+    image: ["assets/images/high-tatras1.jpg", "assets/images/high-tatras2.jpg", "assets/images/high-tatras3.jpg", "assets/images/high-tatras4.jpg"],
+    code: "SK",
+    flight: "Kosice"
+}, {
+    name: "Sierra Leone",
+    city: "Freetown",
+    image: ["assets/images/freetown1.jpg", "assets/images/freetown2.jpg", "assets/images/freetown3.jpg", "assets/images/freetown4.jpg"],
+    code: "SL",
+    flight: "Sierra Leone"
+}, {
+    name: "Vietnam",
+    city: "Hoi An",
+    image: ["assets/images/hoi-an1.jpg", "assets/images/hoi-an2.jpg", "assets/images/hoi-an3.jpg", "assets/images/hoi-an4.jpg"],
+    code: "VN",
+    flight: "Da Nang"
+}, {
+    name: "Indonesia",
+    city: "Bali",
+    image: ["assets/images/bali1.jpg", "assets/images/bali2.jpg", "assets/images/bali3.jpg", "assets/images/bali4.jpg"],
+    code: "ID",
+    flight: "Bali"
+}
+
 ];
 
 
@@ -141,8 +171,15 @@ $(document).ready(function() {
             url: queryURLEvents,
             method: "GET"
         }).then (function(response){
+
             $("tbody").empty();
             $("thead").empty();
+
+            console.log(response)
+
+            $("#events-body").empty();
+            $("#events-head").empty();
+
            
 
         if (response.events.length >= 1) {
@@ -152,7 +189,7 @@ $(document).ready(function() {
                 $("<th>").text("Snapshot:").css("font-weight","Bold"),
                 $("<th>").text("Date:").css("font-weight","Bold")
             )
-            $("thead").append(newHeader);
+            $("#events-head").append(newHeader);
 
             for (var i=0; i<5; i++) {
                 var eventName = response.events[i].name.text
@@ -175,11 +212,11 @@ $(document).ready(function() {
                     $("<td>").text(finalDate),     
                 )
                 
-                $("tbody").append(newRow);
+                $("#events-body").append(newRow);
             }
         } else {
             var none = $()
-            $("thead").append($("<h5>Sorry, no event data available for this city.</h5>"));
+            $("#events-head").append($("<h5>Sorry, no event data available for this city.</h5>"));
         }
         })
 
@@ -222,7 +259,7 @@ $(document).ready(function() {
     // AJAX CALL FOR Weather
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
-    var queryURLWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
+    var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&cnt=7&appid=" + APIKeyWeather;
     //api key for flight
 
 
