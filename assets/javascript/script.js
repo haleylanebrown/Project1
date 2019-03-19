@@ -178,7 +178,7 @@ $(".find-city").on("click", function (event) {
     // AJAX CALL FOR HOLIDAYS
     if (countries[cityNumber].code === "NONE") {
         $("#data").empty();
-        $("#data").append("My apologies. Holiday information is unavailable");
+        $("#data").append("Holiday information unavailable at this time");
 
     }
     else {
@@ -269,9 +269,8 @@ $(".find-city").on("click", function (event) {
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
-    
 
-    //weather call
+
 
         $.ajax({
             url: queryURLWeather,
