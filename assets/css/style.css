@@ -89,3 +89,21 @@ td {
   background: rgb(230,230,230);
   background: rgba(230,230,230, 0.6);
 }
+
+.input-field {
+  display: inline-flex;
+}
+
+#to-country {
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif
+}
+
+.currency-div {
+  background: rgb(230,230,230);
+  background: rgba(230,230,230, 0.6);
+}
+
+#input-div {
+  margin-left: 80px;
+}

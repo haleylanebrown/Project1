@@ -6,95 +6,92 @@ var countries = [{
     city: "Bruges",
     image: ["assets/images/bruges1.jpg", "assets/images/bruges2.jpg", "assets/images/bruges3.jpg", "assets/images/bruges4.jpg"],
     code: "BA",
+    currency: "EUR",
 }, {
 
     name: "Brazil",
     city: "Rio de Janeiro",
     image: ["assets/images/riodejaneiro1.jpg", "assets/images/riodejaneiro2.jpg", "assets/images/riodejaneiro3.jpg", "assets/images/riodejaneiro4.jpg"],
     code: "BR",
-
+    currency: "BRL"
 }, {
     name: "Canada",
     city: "Vancouver",
     image: ["assets/images/vancouver1.jpg", "assets/images/vancouver2.jpg", "assets/images/vancouver3.jpg", "assets/images/vancouver4.jpg"],
     code: "CA",
-
+    currency: "CAD",
 }, {
     name: "Czech Republic",
     city: "Praha",
     image: ["assets/images/prague1.jpg", "assets/images/prague2.jpg", "assets/images/prague3.jpg", "assets/images/prague4.jpg"],
     code: "CZ",
-
+    currency: "CZK",
 }, {
     name: "Denmark",
     city: "København",
     image: ["assets/images/helsingør1.jpg", "assets/images/helsingør2.jpg", "assets/images/helsingør3.jpg", "assets/images/helsingør4.jpg"],
     code: "DK",
-
+    currency: "DKK",
 }, {
     name: "Germany",
     city: "Berlin",
     image: ["assets/images/berlin1.jpg", "assets/images/berlin2.jpg", "assets/images/berlin3.jpg", "assets/images/berlin4.jpg"],
     code: "DE",
-
+    currency: "EUR",
 }, {
     name: "France",
     city: "Bordeaux",
     image: ["assets/images/bordeaux1.jpg", "assets/images/bordeaux2.jpg", "assets/images/bordeaux3.jpg", "assets/images/bordeaux4.jpg"],
     code: "FR",
-
+    currency: "EUR",
 }, {
     name: "Norway",
     city: "Oslo",
     image: ["assets/images/oslo1.jpg", "assets/images/oslo2.jpg", "assets/images/oslo3.jpg", "assets/images/oslo4.jpg"],
     code: "NO",
-
+    currency: "NOK",
 }, {
     name: "Poland",
     city: "Kraków",
     image: ["assets/images/kraków1.jpg", "assets/images/kraków2.jpg", "assets/images/kraków3.jpg", "assets/images/kraków4.jpg"],
     code: "PL",
-
-},
-
-// NEWLY ADDED CITIES
-{
+    currency: "PLN",
+}, {
     name: "Argentina",
     city: "Buenos Aires",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
-
     code: "NONE",
-
+    currency: "ARS",
 }, {
     name: "Australia",
     city: "Sydney",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "NONE",
-
+    currency: "AUD",
 }, {
     name: "Austria",
     city: "Wien",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "NONE",
-
+    currency: "EUR"
 }, {
     name: "Chile",
     city: "Santiago",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "NONE",
-
+    currency: "CLP",
 }, {
     name: "Philippines",
     city: "Manila",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "NONE",
-
+    currency: "PHP",
 }, {
     name: "Singapore",
     city: "Singapore",
     image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
     code: "NONE",
-
+    currency: "SGD",
 },
 ];
 
@@ -146,18 +143,17 @@ $(".find-city").on("click", function (event) {
                     var eventName = response.events[i].name.text
                     var eventSummary = response.events[i].summary
                     var eventDate = response.events[i].start.local
-                    var eventURL = response.events[i].url
-                    var eventLink = eventURL.link(eventURL);
-
+                    var eventLink = response.events[i].url
+                    
 
                     var date = eventDate.split("T");
                     var momentDate = moment(date[0], "YYYY-MM-DD");
                     var finalDate = momentDate.format("MMMM Do YYYY")
 
                     $("a").attr('target', '_blank')
-
+                    console.log(eventLink)
                     var newRow = $("<tr>").append(
-                        $("<td>").html(eventLink),
+                        $("<td>").html("<a href='" + eventLink + "'>Event Page</a>"),
                         $("<td>").text(eventName),
                         $("<td>").text(eventSummary),
                         $("<td>").text(finalDate),
@@ -289,23 +285,30 @@ $(".find-city").on("click", function (event) {
 
     // AJAX CALL FOR CURRENCY
 
-    // var APIKeyCurrency = "eaa992c0be1e3c86d2a8"
-    // var queryURLCurrency = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP&compact=ultra&apiKey=eaa992c0be1e3c86d2a8"
+    var currencyCountry = countries[cityNumber].currency
+    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a" 
 
-    // $.ajax({
-    //     url: queryURLCurrency,
-    //     method: "GET"
-    // }).then(function(response) {
-    //     console.log(response)
+    $.ajax({
+        url: queryURLCurrency,
+        method: "GET"
+    }).then(function(response) {
+        console.log(response)
 
+    $("#to-country").html("to: " + countries[cityNumber].currency)
+     
+    var shortcut = "USD" + countries[cityNumber].currency
+    console.log(shortcut)
+    var conversionRate = response.quotes[shortcut]
+    console.log(conversionRate)
 
-    // })    
-
+    $(".user-convert").on("click", function (event) {
+    var userInput = $("#user-input").val().trim()
+    var converted = conversionRate * userInput
+    $("#answer").text(converted)
+    $("#user-input").val("")
+}) 
+    })
     // END AJAX CALL FOR CURRENCY
-
-
-
-
 
     // END OF ON CLICK FUNCTION FOR FIND CITY
 })
