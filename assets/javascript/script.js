@@ -86,7 +86,7 @@ var countries = [{
 }, {
     name: "Indonesia",
     city: "Bali",
-    image: ["assets/images/bali1.jpg", "assets/images/bali2", "assets/images/bali3", "assets/images/bali4"],
+    image: ["assets/images/bali1.jpg", "assets/images/bali2.jpg", "assets/images/bali3.jpg", "assets/images/bali4.jpg"],
     code: "ID",
     flight: "Bali"
 }
