@@ -160,14 +160,25 @@
             <img id="image4" src="https://www.freegreatpicture.com/files/142/6126-high-resolution-air-photo.jpg">
         </div>
 
-        <div class="container white-text">
+        <div class="container white-text currency-div">
             <div class="row">
                 <div class="col s12">
-                    <h2 class="teal-text currency-title">Currency</h2>
+                    <h2 class="teal-text currency-title">Currency Converter</h2>
+                    <div class="row">
+                        <div class="input-field col s6 black-text" id="input-div">
+                          <input placeholder="Eg. 100" id="user-input" type="text" class="validate">
+                          <label for="user-input">USD</label>
+                          <div id="to-country"></div>
+                        </div>
+                        <a class="waves-effect waves-light btn-large lighten-2 teal user-convert">Convert</a><br><br>
+                        <div id="answer"></div>
+                    </div>    
                 </div>
             </div>
         </div>
     </div>
+
+
     <!-- Footer -->
     <footer class="page-footer #ff5252 red accent-2">© 2019 Copyright Kevin, Dylan, & Haley</footer>
 
