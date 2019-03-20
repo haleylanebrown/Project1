@@ -77,19 +77,19 @@ var countries = [{
 }, {
     name: "Chile",
     city: "Santiago",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/santiago1.jpg", "assets/images/santiago2.jpg", "assets/images/santiago3.jpg", "assets/images/santiago4.jpg"],
     code: "NONE",
     currency: "CLP",
 }, {
     name: "Philippines",
     city: "Manila",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/manila1.jpg", "assets/images/manila2.jpg", "assets/images/manila3.jpg", "assets/images/manila4.jpg"],
     code: "NONE",
     currency: "PHP",
 }, {
     name: "Singapore",
     city: "Singapore",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/singapore1.jpg", "assets/images/singapore2.jpg", "assets/images/singapore3.jpg", "assets/images/singapore4.jpg"],
     code: "NONE",
     currency: "SGD",
 },
