@@ -7,7 +7,7 @@
     <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Project</title>
+    <title>Travel Roulette</title>
 
     <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
 
@@ -25,7 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
 </head>
@@ -38,7 +38,6 @@
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="#weather" class="scroll-button" role="button">Weather</a></li>
             <li><a href="#events" class="scroll-button" role="button">Events</a></li>
-            <li class="divider"></li>
             <li><a href="#holidays" class="scroll-button" role="button">Holidays</a></li>
             <li><a href="#restaurants" class="scroll-button" role="button">Restaurants</a></li>
             <li><a href="#currency" class="scroll-button" role="button">Currency</a></li>
@@ -87,20 +86,22 @@
 
     </div>
 
-   <div class="parallax-container center valign-wrapper" id="weather-parallax">
+    <div class="parallax-container center valign-wrapper" id="weather-parallax">
         <div class="parallax" id="weather">
             <img id="image2" src="assets/images/travel2.jpg">
         </div>
         <div class="container white-text">
             <div class="row">
-                <div class="col s12">  
-                    <h2 class="teal-text weather-title">Weather</h2>
-                    <span id="weather-text"></span>
-                    <div class="container">
-                        <table class="table weather-table weather-div" id="weather-table">
-                            <thead id="weather-head"></thead>
-                            <tbody id="weather-body"></tbody>
-                        </table>
+                <div class="col s12">
+                    <div class="weatherBox">
+                        <h2 class="teal-text weather-title">Weather</h2>
+                        <span id="weather-text"></span>
+                        <div class="container">
+                            <table class="table weather-table weather-div" id="weather-table">
+                                <thead id="weather-head"></thead>
+                                <tbody id="weather-body"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,7 +136,7 @@
                     <h4 id="data"></h4>
                 </div>
             </div>
-        </div>      
+        </div>
     </div>
     <div class="container center-align">
         <div class="section" id="restaurants">
@@ -164,32 +165,32 @@
                     <h2 class="teal-text currency-title">Currency Converter</h2>
                     <div class="row">
                         <div class="input-field col s6 black-text" id="input-div">
-                          <input placeholder="Eg. 100" id="user-input" type="text" class="validate">
-                          <label class="black-text" for="user-input">USD</label>
-                          <div id="to-country"></div>
+                            <input placeholder="Eg. 100" id="user-input" type="text" class="validate">
+                            <label class="black-text" for="user-input">USD</label>
+                            <div id="to-country"></div>
                         </div>
                         <a class="waves-effect waves-light btn-large lighten-2 teal user-convert">Convert</a><br><br>
                         <div id="answer"></div>
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<script>
- $(document).ready(function () {
-      $('.scroll-button').on('click', function (event) {
-        if (this.hash !== "") {
-          event.preventDefault();
-          var hash = this.hash;
-          $('html, main').animate({
-            scrollTop: $(hash).offset().top
-          }, 1500, function () {
-            window.location.hash = hash;
-          });
-        }
-      });
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            $('.scroll-button').on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, main').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 1500, function () {
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+    </script>
     <!-- Footer -->
     <footer class="page-footer #ff5252 red accent-2">© 2019 Copyright Kevin, Dylan, & Haley</footer>
 

@@ -70,10 +70,14 @@ td {
 #event-container {
   width: 100%;
 }
-
-.weather-div {
+.weatherBox {
   background: rgb(230, 230, 230);
   background:rgba(230, 230, 230, 0.8);
+}
+
+.weather-div {
+  /* background: rgb(230, 230, 230);
+  background:rgba(230, 230, 230, 0.8); */
   color:white;
   font-size: 15px;
   font-family: Arial, Helvetica, sans-serif;
