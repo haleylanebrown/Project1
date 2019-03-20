@@ -155,12 +155,12 @@ $(".find-city").on("click", function (event) {
 
 
                     var newRow = $("<tr>").append(
-                        $("<td>").html("<a id='eventbrite' href='" + eventLink + "'>Event Page</a>"),
+                        $("<td>").html("<a id='eventbrite' target='_blank' href='" + eventLink + "'>Event Page</a>"),
                         $("<td>").text(eventName),
                         $("<td>").text(eventSummary),
                         $("<td>").text(finalDate),
                     )
-                    $("#eventbrite").attr('target', '_blank')
+
                     $("#events-body").append(newRow);
                 }
             } else {
@@ -242,14 +242,14 @@ $(".find-city").on("click", function (event) {
             var restaurantType = response.businesses[i].categories[0].title;
 
             var newRow = $("<tr>").append(
-                $("<td>").html("<a id='yelp' href='" + restaurantURL + "'>Yelp page</a>"),
+                $("<td>").html("<a id='yelp' target='_blank' href='" + restaurantURL + "'>Yelp page</a>"),
                 $("<td>").text(restaurantName),
                 $("<td>").text(restaurantRating),
                 $("<td>").text(restaurantPrice),
                 $("<td>").text(restaurantType),
 
             )
-            $("#yelp").attr('target', '_blank')
+            
             $("#restaurants-body").append(newRow);
         }
     });
