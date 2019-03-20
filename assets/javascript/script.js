@@ -95,8 +95,6 @@ var countries = [{
 },
 ];
 
-console.log("testing");
-
 
 
 $(document).ready(function () {
@@ -155,7 +153,6 @@ $(".find-city").on("click", function (event) {
                     var finalDate = momentDate.format("MMMM Do YYYY")
 
 
-                    console.log(eventLink)
                     var newRow = $("<tr>").append(
                         $("<td>").html("<a id='eventbrite' href='" + eventLink + "'>Event Page</a>"),
                         $("<td>").text(eventName),
@@ -199,7 +196,6 @@ $(".find-city").on("click", function (event) {
                 var uglyDate = response.holidays[i].date
                 var convertingDate = moment(uglyDate, "YYYY-MM-DD");
                 var prettyDate = (convertingDate).format("MMMM Do YYYY");
-                console.log(prettyDate);
 
                 holidayName.append(response.holidays[i].name);
                 holidayDate.append(prettyDate);
@@ -225,7 +221,6 @@ $(".find-city").on("click", function (event) {
         }
     }
     $.ajax(settings).done(function (response) {
-        console.log(response);
 
         $("#restaurants-body").empty();
         $("#restaurants-head").empty();
@@ -271,7 +266,6 @@ $(".find-city").on("click", function (event) {
         url: queryURLWeather,
         method: "GET"
     }).then(function (response) {
-        console.log(response)
         $("#weather-body").empty();
         $("#weather-head").empty();
         $("#weather-text").empty();
@@ -340,7 +334,6 @@ $(".find-city").on("click", function (event) {
         url: queryURLCurrency,
         method: "GET"
     }).then(function (response) {
-        console.log(response)
 
         $("#to-country").html("to: " + countries[cityNumber].currency)
 
