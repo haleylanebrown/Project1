@@ -36,7 +36,7 @@
 }
 
 .weather-title {
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 .events-title, .restaurants-title {
@@ -73,6 +73,7 @@ td {
 .weatherBox {
   background: rgb(230, 230, 230);
   background:rgba(230, 230, 230, 0.8);
+  padding: 1px;
 }
 
 .weather-div {
