@@ -327,30 +327,28 @@ $(".find-city").on("click", function (event) {
 
 
     // AJAX CALL FOR CURRENCY
-
-    var currencyCountry = countries[cityNumber].currency
-    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a"
-
-    $.ajax({
-        url: queryURLCurrency,
-        method: "GET"
-    }).then(function (response) {
-
-        $("#to-country").html("to: " + countries[cityNumber].currency)
-
-        var shortcut = "USD" + countries[cityNumber].currency
-        var conversionRate = response.quotes[shortcut]
-
-        $(".user-convert").on("click", function (event) {
-            var userInput = $("#user-input").val().trim()
-            var converted = conversionRate * userInput
-            var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
-
-            $("#answer").text(convertedDecimal)
-
-        })
-
-
+    
+        var currencyCountry = countries[cityNumber].currency
+        var queryURLCurrency = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_" + currencyCountry + "&compact=ultra&apiKey=eaa992c0be1e3c86d2a8"
+    
+        $.ajax({
+            url: queryURLCurrency,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response)
+            $("#to-country").html("to: " + countries[cityNumber].currency)
+    
+            var shortcut = "USD_" + countries[cityNumber].currency
+            var conversionRate = response[shortcut]
+    
+            $(".user-convert").on("click", function (event) {
+                var userInput = $("#user-input").val().trim()
+                var converted = conversionRate * userInput
+                var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
+    
+                $("#answer").text(convertedDecimal)
+    
+            })
     })
     // END AJAX CALL FOR CURRENCY
 
