@@ -5,7 +5,7 @@ var countries = [{
     name: "Belgium",
     city: "Bruges",
     image: ["assets/images/bruges1.jpg", "assets/images/bruges2.jpg", "assets/images/bruges3.jpg", "assets/images/bruges4.jpg"],
-    code: "BA",
+    code: "BE",
     currency: "EUR",
 }, {
 
