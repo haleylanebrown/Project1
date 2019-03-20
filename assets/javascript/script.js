@@ -148,7 +148,7 @@ $(".find-city").on("click", function (event) {
                     var eventSummary = response.events[i].summary
                     var eventDate = response.events[i].start.local
                     var eventLink = response.events[i].url
-                    
+
 
                     var date = eventDate.split("T");
                     var momentDate = moment(date[0], "YYYY-MM-DD");
@@ -260,15 +260,11 @@ $(".find-city").on("click", function (event) {
     // END AJAX CALL FOR RESTAUTANTS
 
 
-
-
     // AJAX CALL FOR Weather
 
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
-
-
 
 
         $.ajax({
@@ -312,20 +308,18 @@ $(".find-city").on("click", function (event) {
 
     }});
 
-
     // END AJAX CALL FOR Weather
-
 
 
     // AJAX CALL FOR CURRENCY
 
     var currencyCountry = countries[cityNumber].currency
-    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a" 
+    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a"
 
     $.ajax({
         url: queryURLCurrency,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response)
 
     $("#to-country").html("to: " + countries[cityNumber].currency)
@@ -341,6 +335,7 @@ $(".find-city").on("click", function (event) {
     $("#answer").text(convertedDecimal)
     
 }) 
+
 
     })
     // END AJAX CALL FOR CURRENCY
