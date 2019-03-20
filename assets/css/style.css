@@ -1,5 +1,5 @@
 .parallax-container {
-    height: 500px;
+    height: 600px;
   }
 
 .site-title {
@@ -33,6 +33,10 @@
 .weather-title, .holidays-title, .currency-title, #weather-text {
   font-family: 'Times New Roman', Times, serif;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.weather-title {
+  margin-bottom: 0px;
 }
 
 .events-title, .restaurants-title {
@@ -69,28 +73,31 @@ td {
 
 .weather-div {
   background: rgb(230, 230, 230);
-  background:rgba(230, 230, 230, 0.9);
+  background:rgba(230, 230, 230, 0.8);
   color:white;
-  font-size: 20px;
-  font-family: 'Times New Roman', Times, serif;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-}
 #weather-table {
-  color:black
+  color:black;
+  margin-bottom: 20px;
 }
+
 #weather-text {
   font-size: 16px;
+  margin: 0px;
 }
 
 
 #data {
   font-family: 'Times New Roman', Times, serif;
-  color: white;
+  color: black
 }
 
 .holidays-div {
   background: rgb(230,230,230);
-  background: rgba(230,230,230, 0.6);
+  background: rgba(230,230,230, 0.8);
 }
 
 
@@ -99,13 +106,13 @@ td {
 }
 
 #to-country {
-  font-size: 20px;
+  font-size: 25px;
   font-family: 'Times New Roman', Times, serif
 }
 
 .currency-div {
   background: rgb(230,230,230);
-  background: rgba(230,230,230, 0.6);
+  background: rgba(230,230,230, 0.8);
 }
 
 #input-div {
@@ -114,4 +121,10 @@ td {
 #weather-parallax {
   height: 550px
 
+}
+
+#answer {
+  color: black;
+  font-size: 25px;
+  font-family: 'Times New Roman', Times, serif
 }

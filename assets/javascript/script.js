@@ -59,19 +59,19 @@ var countries = [{
 }, {
     name: "Argentina",
     city: "Buenos Aires",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/buenos-aires1.jpg", "assets/images/buenos-aires2.jpg", "assets/images/buenos-aires3.jpg", "assets/images/buenos-aires4.jpg"],
     code: "NONE",
     currency: "ARS",
 }, {
     name: "Australia",
     city: "Sydney",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/sydney1.jpg", "assets/images/sydney2.jpg", "assets/images/sydney3.jpg", "assets/images/sydney4.jpg"],
     code: "NONE",
     currency: "AUD",
 }, {
     name: "Austria",
     city: "Wien",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/wien1.jpg", "assets/images/wien2.jpg", "assets/images/wien3.jpg", "assets/images/wien4.jpg"],
     code: "NONE",
     currency: "EUR"
 }, {
@@ -95,6 +95,7 @@ var countries = [{
 },
 ];
 
+console.log("testing");
 
 
 
@@ -102,7 +103,6 @@ $(document).ready(function () {
     $('.parallax').parallax();
     $(".dropdown-trigger").dropdown();
 });
-
 $(".find-city").on("click", function (event) {
     var cityNumber = (Math.floor(Math.random() * countries.length));
     // sets city name on page
@@ -115,7 +115,10 @@ $(".find-city").on("click", function (event) {
     $("#image3").attr("src", countries[cityNumber].image[2]);
     $("#image4").attr("src", countries[cityNumber].image[3]);
 
-
+    //clears converted currency
+    $("#answer").empty()
+    $("#user-input").val("")
+    
     // AJAX CALL FOR EVENTS
     var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
     var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
@@ -145,21 +148,21 @@ $(".find-city").on("click", function (event) {
                     var eventSummary = response.events[i].summary
                     var eventDate = response.events[i].start.local
                     var eventLink = response.events[i].url
-                    
+
 
                     var date = eventDate.split("T");
                     var momentDate = moment(date[0], "YYYY-MM-DD");
                     var finalDate = momentDate.format("MMMM Do YYYY")
 
-                    $("a").attr('target', '_blank')
+                    
                     console.log(eventLink)
                     var newRow = $("<tr>").append(
-                        $("<td>").html("<a href='" + eventLink + "'>Event Page</a>"),
+                        $("<td>").html("<a id='eventbrite' href='" + eventLink + "'>Event Page</a>"),
                         $("<td>").text(eventName),
                         $("<td>").text(eventSummary),
                         $("<td>").text(finalDate),
                     )
-
+                    $("#eventbrite").attr('target', '_blank')
                     $("#events-body").append(newRow);
                 }
             } else {
@@ -257,15 +260,11 @@ $(".find-city").on("click", function (event) {
     // END AJAX CALL FOR RESTAUTANTS
 
 
-
-
     // AJAX CALL FOR Weather
 
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
-
-
 
 
         $.ajax({
@@ -276,7 +275,7 @@ $(".find-city").on("click", function (event) {
             $("#weather-body").empty();
             $("#weather-head").empty();
             $("#weather-text").empty();
-            $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+            $("#weather-text").append("<h3 style='font-size: 1.9rem; margin: 5px;'>5 day forecast</h3>");
             $("#weather-text").attr("class", "teal-text");
             var weatherHeader = $("<tr>").append(
                 $("<th>").text("Date").css("font-weight", "Bold"),
@@ -309,35 +308,35 @@ $(".find-city").on("click", function (event) {
 
     }});
 
-
     // END AJAX CALL FOR Weather
-
 
 
     // AJAX CALL FOR CURRENCY
 
     var currencyCountry = countries[cityNumber].currency
-    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a" 
+    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a"
 
     $.ajax({
         url: queryURLCurrency,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response)
 
     $("#to-country").html("to: " + countries[cityNumber].currency)
      
     var shortcut = "USD" + countries[cityNumber].currency
-    console.log(shortcut)
     var conversionRate = response.quotes[shortcut]
-    console.log(conversionRate)
 
     $(".user-convert").on("click", function (event) {
     var userInput = $("#user-input").val().trim()
     var converted = conversionRate * userInput
-    $("#answer").text(converted)
-    $("#user-input").val("")
+    var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
+    
+    $("#answer").text(convertedDecimal)
+    
 }) 
+
+
     })
     // END AJAX CALL FOR CURRENCY
 
