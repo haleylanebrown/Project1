@@ -145,7 +145,7 @@ $(".find-city").on("click", function (event) {
                     var eventSummary = response.events[i].summary
                     var eventDate = response.events[i].start.local
                     var eventLink = response.events[i].url
-                    
+
 
                     var date = eventDate.split("T");
                     var momentDate = moment(date[0], "YYYY-MM-DD");
@@ -257,87 +257,81 @@ $(".find-city").on("click", function (event) {
     // END AJAX CALL FOR RESTAUTANTS
 
 
-
-
     // AJAX CALL FOR Weather
 
     //api key for weather    
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
+    $.ajax({
+        url: queryURLWeather,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+        $("#weather-body").empty();
+        $("#weather-head").empty();
+        $("#weather-text").empty();
+        $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
+        $("#weather-text").attr("class", "teal-text");
+        var weatherHeader = $("<tr>").append(
+            $("<th>").text("Date").css("font-weight", "Bold"),
+            $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+            $("<th>").text("Humidity %").css("font-weight", "Bold"),
+            $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+            $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+        );
+        $("#weather-head").append(weatherHeader);
+        for (var i = 0; i < 40; i += 8) {
 
 
+            var uglyWeatherDay = response.list[i].dt_txt;
+            var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+            var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
 
-        $.ajax({
-            url: queryURLWeather,
-            method: "GET"
-        }).then(function (response) {
-            console.log(response)
-            $("#weather-body").empty();
-            $("#weather-head").empty();
-            $("#weather-text").empty();
-            $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
-            $("#weather-text").attr("class", "teal-text");
-            var weatherHeader = $("<tr>").append(
-                $("<th>").text("Date").css("font-weight", "Bold"),
-                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-            );
-            $("#weather-head").append(weatherHeader);
-            for (var i = 0; i < 40; i += 8) {
+            var weatherTemp = response.list[i].main.temp;
+            var weatherHumidity = response.list[i].main.humidity;
+            var weatherCloud = response.list[i].weather[0].description;
+            var weatherSpeed = response.list[i].wind.speed;
+            var newRow = $("<tr>").append(
+                $("<td>").text(prettyWeatherDay),
+                $("<td>").html(weatherTemp),
+                $("<td>").text(weatherHumidity),
+                $("<td>").text(weatherCloud),
+                $("<td>").text(weatherSpeed),
+            )
+            $("#weather-body").append(newRow)
 
-                
-                var uglyWeatherDay = response.list[i].dt_txt;
-                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
-                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
-
-                var weatherTemp = response.list[i].main.temp;
-                var weatherHumidity = response.list[i].main.humidity;
-                var weatherCloud = response.list[i].weather[0].description;
-                var weatherSpeed = response.list[i].wind.speed;
-                var newRow = $("<tr>").append(
-                    $("<td>").text(prettyWeatherDay),
-                    $("<td>").html(weatherTemp),
-                    $("<td>").text(weatherHumidity),
-                    $("<td>").text(weatherCloud),
-                    $("<td>").text(weatherSpeed),
-
-                )
-                $("#weather-body").append(newRow)
-
-    }});
+        }
+    });
 
 
     // END AJAX CALL FOR Weather
 
 
-
     // AJAX CALL FOR CURRENCY
 
     var currencyCountry = countries[cityNumber].currency
-    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a" 
+    var queryURLCurrency = "http://apilayer.net/api/live?access_key=57fd097301de2d4ad923f61416ffe58a"
 
     $.ajax({
         url: queryURLCurrency,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response)
 
-    $("#to-country").html("to: " + countries[cityNumber].currency)
-     
-    var shortcut = "USD" + countries[cityNumber].currency
-    console.log(shortcut)
-    var conversionRate = response.quotes[shortcut]
-    console.log(conversionRate)
+        $("#to-country").html("to: " + countries[cityNumber].currency)
 
-    $(".user-convert").on("click", function (event) {
-    var userInput = $("#user-input").val().trim()
-    var converted = conversionRate * userInput
-    $("#answer").text(converted)
-    $("#user-input").val("")
-}) 
+        var shortcut = "USD" + countries[cityNumber].currency
+        console.log(shortcut)
+        var conversionRate = response.quotes[shortcut]
+        console.log(conversionRate)
+
+        $(".user-convert").on("click", function (event) {
+            var userInput = $("#user-input").val().trim()
+            var converted = conversionRate * userInput
+            $("#answer").text(converted)
+            $("#user-input").val("")
+        })
     })
     // END AJAX CALL FOR CURRENCY
 
