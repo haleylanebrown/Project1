@@ -89,7 +89,7 @@ var countries = [{
 }, {
     name: "Singapore",
     city: "Singapore",
-    image: ["assets/images/singapore1.jpg", "assets/images/singapore2.jpg", "assets/images/singapore3.jpg", "assets/images/singapore4.jpg"],
+    image: ["assets/images/singapore1.jpg", "assets/images/singapore2.jpg", "assets/images/singapore3.jpg", "assets/images/singapore4.JPG"],
     code: "NONE",
     currency: "SGD",
 },
