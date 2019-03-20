@@ -25,8 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> 
 
 
 </head>
@@ -35,14 +34,14 @@
 
     <!-- Header -->
 
-    <div id="navbar">
+    <div id="navbar" class="navbar-fixed">
         <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#!">Weather</a></li>
-            <li><a href="#!">Events</a></li>
+            <li><a href="#weather" class="scroll-button" role="button">Weather</a></li>
+            <li><a href="#events" class="scroll-button" role="button">Events</a></li>
             <li class="divider"></li>
-            <li><a href="#!">Holidays</a></li>
-            <li><a href="#!">Restaurants</a></li>
-            <li><a href="#!">currency</a></li>
+            <li><a href="#holidays" class="scroll-button" role="button">Holidays</a></li>
+            <li><a href="#restaurants" class="scroll-button" role="button">Restaurants</a></li>
+            <li><a href="#currency" class="scroll-button" role="button">Currency</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper">
@@ -88,18 +87,17 @@
 
     </div>
 
-    <div class="parallax-container center valign-wrapper" id="weather-parallax">
-        <div class="parallax">
+   <div class="parallax-container center valign-wrapper" id="weather-parallax">
+        <div class="parallax" id="weather">
             <img id="image2" src="assets/images/travel2.jpg">
         </div>
         <div class="container white-text">
             <div class="row">
-                <div class="col s12">
-                    
+                <div class="col s12">  
                     <h2 class="teal-text weather-title">Weather</h2>
                     <span id="weather-text"></span>
-                    <div class="container  weather-div">
-                        <table class="table weather-table" id="weather-table">
+                    <div class="container">
+                        <table class="table weather-table weather-div" id="weather-table">
                             <thead id="weather-head"></thead>
                             <tbody id="weather-body"></tbody>
                         </table>
@@ -110,7 +108,7 @@
     </div>
 
     <div class="container center-align" id="event-container">
-        <div class="section">
+        <div class="section" id="events">
             <div class="row">
                 <div class="col s12">
                     <h2 class="teal-text events-title">Upcoming Events</h2>
@@ -126,7 +124,7 @@
     </div>
 
     <div class="parallax-container center valign-wrapper">
-        <div class="parallax">
+        <div class="parallax" id="holidays">
             <img id="image3" src="assets/images/travel3.jpg">
         </div>
 
@@ -134,13 +132,13 @@
             <div class="row">
                 <div class="col s12">
                     <h2 class="teal-text holidays-title">Local Holidays</h2>
-                    <h2 id="data"></h2>
+                    <h4 id="data"></h4>
                 </div>
             </div>
         </div>      
     </div>
     <div class="container center-align">
-        <div class="section">
+        <div class="section" id="restaurants">
             <div class="row">
                 <div class="col s12">
                     <h2 class="teal-text restaurants-title">Restaurants</h2>
@@ -155,7 +153,7 @@
         </div>
     </div>
 
-    <div class="parallax-container center valign-wrapper">
+    <div class="parallax-container center valign-wrapper" id="currency">
         <div class="parallax">
             <img id="image4" src="https://www.freegreatpicture.com/files/142/6126-high-resolution-air-photo.jpg">
         </div>
@@ -167,7 +165,7 @@
                     <div class="row">
                         <div class="input-field col s6 black-text" id="input-div">
                           <input placeholder="Eg. 100" id="user-input" type="text" class="validate">
-                          <label for="user-input">USD</label>
+                          <label class="black-text" for="user-input">USD</label>
                           <div id="to-country"></div>
                         </div>
                         <a class="waves-effect waves-light btn-large lighten-2 teal user-convert">Convert</a><br><br>
@@ -177,8 +175,21 @@
             </div>
         </div>
     </div>
-
-
+<script>
+ $(document).ready(function () {
+      $('.scroll-button').on('click', function (event) {
+        if (this.hash !== "") {
+          event.preventDefault();
+          var hash = this.hash;
+          $('html, main').animate({
+            scrollTop: $(hash).offset().top
+          }, 1500, function () {
+            window.location.hash = hash;
+          });
+        }
+      });
+    });
+</script>
     <!-- Footer -->
     <footer class="page-footer #ff5252 red accent-2">© 2019 Copyright Kevin, Dylan, & Haley</footer>
 
