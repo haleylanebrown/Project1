@@ -89,7 +89,7 @@ var countries = [{
 }, {
     name: "Singapore",
     city: "Singapore",
-    image: ["assets/images/singapore1.jpg", "assets/images/singapore2.jpg", "assets/images/singapore3.jpg", "assets/images/singapore4.jpg"],
+    image: ["assets/images/singapore1.jpg", "assets/images/singapore2.jpg", "assets/images/singapore3.jpg", "assets/images/singapore4.JPG"],
     code: "NONE",
     currency: "SGD",
 },
@@ -354,25 +354,8 @@ $(".find-city").on("click", function (event) {
     })
     // END AJAX CALL FOR CURRENCY
 
-    var APIKeyCurrency = "663f90907eb765775773";
-    var queryURLCurrency2 = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_EUR,EUR_USD&compact=ultra&&apiKey=" + APIKeyCurrency;
-
-    $.ajax({
-        url: queryURLCurrency2,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response)
-    });
     // END OF ON CLICK FUNCTION FOR FIND CITY
 })
 
-var APIKeyCurrency = "663f90907eb765775773";
-var queryURLCurrency2 = "https://free.currencyconverterapi.com/api/v6/convert?q=USD_PHP,PHP_USD&compact=ultra&&apiKey=" + APIKeyCurrency;
 
-$.ajax({
-    url: queryURLCurrency2,
-    method: "GET"
-}).then(function (response) {
-    console.log(response)
-});
 
