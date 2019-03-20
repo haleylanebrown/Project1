@@ -118,7 +118,7 @@ $(".find-city").on("click", function (event) {
     //clears converted currency
     $("#answer").empty()
     $("#user-input").val("")
-    
+
     // AJAX CALL FOR EVENTS
     var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
     var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
@@ -154,7 +154,7 @@ $(".find-city").on("click", function (event) {
                     var momentDate = moment(date[0], "YYYY-MM-DD");
                     var finalDate = momentDate.format("MMMM Do YYYY")
 
-                    
+
                     console.log(eventLink)
                     var newRow = $("<tr>").append(
                         $("<td>").html("<a id='eventbrite' href='" + eventLink + "'>Event Page</a>"),
@@ -267,46 +267,66 @@ $(".find-city").on("click", function (event) {
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
 
-        $.ajax({
-            url: queryURLWeather,
-            method: "GET"
-        }).then(function (response) {
-            console.log(response)
-            $("#weather-body").empty();
+    $.ajax({
+        url: queryURLWeather,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+        $("#weather-body").empty();
+        $("#weather-head").empty();
+        $("#weather-text").empty();
+        $("#weather-text").append("<h3 style='font-size: 1.9rem; margin: 5px;'>5 day forecast</h3>");
+        $("#weather-text").attr("class", "teal-text");
+
+        function popWeatherHead() {
             $("#weather-head").empty();
-            $("#weather-text").empty();
-            $("#weather-text").append("<h3 style='font-size: 1.9rem; margin: 5px;'>5 day forecast</h3>");
-            $("#weather-text").attr("class", "teal-text");
-            var weatherHeader = $("<tr>").append(
-                $("<th>").text("Date").css("font-weight", "Bold"),
-                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-                $("<th>").text("Humidity %").css("font-weight", "Bold"),
-                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-            );
+            if (media.matches) {
+                var weatherHeader = $("<tr>").append(
+                    $("<th>").text("Date").css("font-weight", "Bold"),
+                    $("<th>").text("Temp (F)").css("font-weight", "Bold"),
+                    $("<th>").text("Hum. %").css("font-weight", "Bold"),
+                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                    $("<th>").text("Wind (MPH)").css("font-weight", "Bold")
+                );
+            }
+            else {
+                var weatherHeader = $("<tr>").append(
+                    $("<th>").text("Date").css("font-weight", "Bold"),
+                    $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                    $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                    $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                    $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+                );
+            }
             $("#weather-head").append(weatherHeader);
-            for (var i = 0; i < 40; i += 8) {
 
-                
-                var uglyWeatherDay = response.list[i].dt_txt;
-                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
-                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
+        }
+        var media = window.matchMedia("(max-width: 500px)");
+        media.addListener(popWeatherHead)
+        popWeatherHead();
+        for (var i = 0; i < 40; i += 8) {
 
-                var weatherTemp = response.list[i].main.temp;
-                var weatherHumidity = response.list[i].main.humidity;
-                var weatherCloud = response.list[i].weather[0].description;
-                var weatherSpeed = response.list[i].wind.speed;
-                var newRow = $("<tr>").append(
-                    $("<td>").text(prettyWeatherDay),
-                    $("<td>").html(weatherTemp),
-                    $("<td>").text(weatherHumidity),
-                    $("<td>").text(weatherCloud),
-                    $("<td>").text(weatherSpeed),
 
-                )
-                $("#weather-body").append(newRow)
+            var uglyWeatherDay = response.list[i].dt_txt;
+            var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+            var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
 
-    }});
+            var weatherTemp = response.list[i].main.temp;
+            var weatherHumidity = response.list[i].main.humidity;
+            var weatherCloud = response.list[i].weather[0].description;
+            var weatherSpeed = response.list[i].wind.speed;
+            var newRow = $("<tr>").append(
+                $("<td>").text(prettyWeatherDay),
+                $("<td>").html(weatherTemp),
+                $("<td>").text(weatherHumidity),
+                $("<td>").text(weatherCloud),
+                $("<td>").text(weatherSpeed),
+
+            )
+            $("#weather-body").append(newRow)
+
+        }
+    });
 
     // END AJAX CALL FOR Weather
 
@@ -322,19 +342,19 @@ $(".find-city").on("click", function (event) {
     }).then(function (response) {
         console.log(response)
 
-    $("#to-country").html("to: " + countries[cityNumber].currency)
-     
-    var shortcut = "USD" + countries[cityNumber].currency
-    var conversionRate = response.quotes[shortcut]
+        $("#to-country").html("to: " + countries[cityNumber].currency)
 
-    $(".user-convert").on("click", function (event) {
-    var userInput = $("#user-input").val().trim()
-    var converted = conversionRate * userInput
-    var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
-    
-    $("#answer").text(convertedDecimal)
-    
-}) 
+        var shortcut = "USD" + countries[cityNumber].currency
+        var conversionRate = response.quotes[shortcut]
+
+        $(".user-convert").on("click", function (event) {
+            var userInput = $("#user-input").val().trim()
+            var converted = conversionRate * userInput
+            var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
+
+            $("#answer").text(convertedDecimal)
+
+        })
 
 
     })
