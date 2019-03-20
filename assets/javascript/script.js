@@ -59,19 +59,19 @@ var countries = [{
 }, {
     name: "Argentina",
     city: "Buenos Aires",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/buenos-aires1.jpg", "assets/images/buenos-aires2.jpg", "assets/images/buenos-aires3.jpg", "assets/images/buenos-aires4.jpg"],
     code: "NONE",
     currency: "ARS",
 }, {
     name: "Australia",
     city: "Sydney",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/sydney1.jpg", "assets/images/sydney2.jpg", "assets/images/sydney3.jpg", "assets/images/sydney4.jpg"],
     code: "NONE",
     currency: "AUD",
 }, {
     name: "Austria",
     city: "Wien",
-    image: ["assets/images/novosibirsk1.jpg", "assets/images/novosibirsk2.jpg", "assets/images/novosibirsk3.jpg", "assets/images/novosibirsk4.jpg"],
+    image: ["assets/images/wien1.jpg", "assets/images/wien2.jpg", "assets/images/wien3.jpg", "assets/images/wien4.jpg"],
     code: "NONE",
     currency: "EUR"
 }, {
@@ -95,6 +95,7 @@ var countries = [{
 },
 ];
 
+console.log("testing");
 
 
 
@@ -102,7 +103,6 @@ $(document).ready(function () {
     $('.parallax').parallax();
     $(".dropdown-trigger").dropdown();
 });
-
 $(".find-city").on("click", function (event) {
     var cityNumber = (Math.floor(Math.random() * countries.length));
     // sets city name on page
@@ -115,7 +115,10 @@ $(".find-city").on("click", function (event) {
     $("#image3").attr("src", countries[cityNumber].image[2]);
     $("#image4").attr("src", countries[cityNumber].image[3]);
 
-
+    //clears converted currency
+    $("#answer").empty()
+    $("#user-input").val("")
+    
     // AJAX CALL FOR EVENTS
     var queryURLEventsToken = "https://www.eventbriteapi.com/v3/users/me/?token=XMB4Y3P46DMGD4HK5LHA";
     var queryURLEvents = "https://www.eventbriteapi.com/v3/events/search/?token=XMB4Y3P46DMGD4HK5LHA&location.address=" + countries[cityNumber].city + "&location.within=10km&expand=venue";
@@ -151,15 +154,15 @@ $(".find-city").on("click", function (event) {
                     var momentDate = moment(date[0], "YYYY-MM-DD");
                     var finalDate = momentDate.format("MMMM Do YYYY")
 
-                    $("a").attr('target', '_blank')
+                    
                     console.log(eventLink)
                     var newRow = $("<tr>").append(
-                        $("<td>").html("<a href='" + eventLink + "'>Event Page</a>"),
+                        $("<td>").html("<a id='eventbrite' href='" + eventLink + "'>Event Page</a>"),
                         $("<td>").text(eventName),
                         $("<td>").text(eventSummary),
                         $("<td>").text(finalDate),
                     )
-
+                    $("#eventbrite").attr('target', '_blank')
                     $("#events-body").append(newRow);
                 }
             } else {
@@ -263,47 +266,47 @@ $(".find-city").on("click", function (event) {
     var APIKeyWeather = "166a433c57516f51dfab1f7edaed8413"
     var queryURLWeather = "https://api.openweathermap.org/data/2.5/forecast?q=" + countries[cityNumber].city + "," + countries[cityNumber].name + "&units=imperial&appid=" + APIKeyWeather;
 
-    $.ajax({
-        url: queryURLWeather,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response)
-        $("#weather-body").empty();
-        $("#weather-head").empty();
-        $("#weather-text").empty();
-        $("#weather-text").append("<h3 style='font-size: 1.9rem'>5 day forecast</h3>");
-        $("#weather-text").attr("class", "teal-text");
-        var weatherHeader = $("<tr>").append(
-            $("<th>").text("Date").css("font-weight", "Bold"),
-            $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
-            $("<th>").text("Humidity %").css("font-weight", "Bold"),
-            $("<th>").text("Sky coverage").css("font-weight", "Bold"),
-            $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
-        );
-        $("#weather-head").append(weatherHeader);
-        for (var i = 0; i < 40; i += 8) {
 
+        $.ajax({
+            url: queryURLWeather,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response)
+            $("#weather-body").empty();
+            $("#weather-head").empty();
+            $("#weather-text").empty();
+            $("#weather-text").append("<h3 style='font-size: 1.9rem; margin: 5px;'>5 day forecast</h3>");
+            $("#weather-text").attr("class", "teal-text");
+            var weatherHeader = $("<tr>").append(
+                $("<th>").text("Date").css("font-weight", "Bold"),
+                $("<th>").text("Temperature (F)").css("font-weight", "Bold"),
+                $("<th>").text("Humidity %").css("font-weight", "Bold"),
+                $("<th>").text("Sky coverage").css("font-weight", "Bold"),
+                $("<th>").text("Windspeed (MPH)").css("font-weight", "Bold")
+            );
+            $("#weather-head").append(weatherHeader);
+            for (var i = 0; i < 40; i += 8) {
 
-            var uglyWeatherDay = response.list[i].dt_txt;
-            var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
-            var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
+                
+                var uglyWeatherDay = response.list[i].dt_txt;
+                var convertedWeatherDay = moment(uglyWeatherDay, "YYYY-MM-DD hh:mm:ss");
+                var prettyWeatherDay = (convertedWeatherDay).format("MMMM Do")
 
-            var weatherTemp = response.list[i].main.temp;
-            var weatherHumidity = response.list[i].main.humidity;
-            var weatherCloud = response.list[i].weather[0].description;
-            var weatherSpeed = response.list[i].wind.speed;
-            var newRow = $("<tr>").append(
-                $("<td>").text(prettyWeatherDay),
-                $("<td>").html(weatherTemp),
-                $("<td>").text(weatherHumidity),
-                $("<td>").text(weatherCloud),
-                $("<td>").text(weatherSpeed),
-            )
-            $("#weather-body").append(newRow)
+                var weatherTemp = response.list[i].main.temp;
+                var weatherHumidity = response.list[i].main.humidity;
+                var weatherCloud = response.list[i].weather[0].description;
+                var weatherSpeed = response.list[i].wind.speed;
+                var newRow = $("<tr>").append(
+                    $("<td>").text(prettyWeatherDay),
+                    $("<td>").html(weatherTemp),
+                    $("<td>").text(weatherHumidity),
+                    $("<td>").text(weatherCloud),
+                    $("<td>").text(weatherSpeed),
 
-        }
-    });
+                )
+                $("#weather-body").append(newRow)
 
+    }});
 
     // END AJAX CALL FOR Weather
 
@@ -319,19 +322,21 @@ $(".find-city").on("click", function (event) {
     }).then(function (response) {
         console.log(response)
 
-        $("#to-country").html("to: " + countries[cityNumber].currency)
+    $("#to-country").html("to: " + countries[cityNumber].currency)
+     
+    var shortcut = "USD" + countries[cityNumber].currency
+    var conversionRate = response.quotes[shortcut]
 
-        var shortcut = "USD" + countries[cityNumber].currency
-        console.log(shortcut)
-        var conversionRate = response.quotes[shortcut]
-        console.log(conversionRate)
+    $(".user-convert").on("click", function (event) {
+    var userInput = $("#user-input").val().trim()
+    var converted = conversionRate * userInput
+    var convertedDecimal = (converted.toFixed(2)) + " " + countries[cityNumber].currency
+    
+    $("#answer").text(convertedDecimal)
+    
+}) 
 
-        $(".user-convert").on("click", function (event) {
-            var userInput = $("#user-input").val().trim()
-            var converted = conversionRate * userInput
-            $("#answer").text(converted)
-            $("#user-input").val("")
-        })
+
     })
     // END AJAX CALL FOR CURRENCY
 
