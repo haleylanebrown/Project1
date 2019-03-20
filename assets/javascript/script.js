@@ -97,6 +97,7 @@ var countries = [{
 
 
 
+
 $(document).ready(function () {
     $('.parallax').parallax();
     $(".dropdown-trigger").dropdown();
@@ -355,4 +356,6 @@ $(".find-city").on("click", function (event) {
 
     // END OF ON CLICK FUNCTION FOR FIND CITY
 })
+
+
 
