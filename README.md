@@ -3,7 +3,7 @@ Have you ever wanted to take a vacation, but you're not sure where to go? Our ap
 
 ![travelroulette](https://user-images.githubusercontent.com/47645417/58117536-0afe0b00-7bbc-11e9-95ed-a86c112c81c5.png)
 
-[Check out the app here](https://haleylanebrown.github.io/Project1/)
+[Check out the app here](https://haleylanebrown.github.io/Travel-Roulette/)
 
 ## built with
 * JavaScript
